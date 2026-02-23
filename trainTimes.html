@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <title>train times</title>
+   </head>
+   <body>
+      <h1>Irish Rail Live Departures</h1>
+
+      <select id="stationSelect">
+         <option value="">Loading stations...</option>
+      </select>
+
+      <button id="searchBtn">Search</button>
+
+      <div id="errorMsg"></div>
+
+      <table id="resultsTable" style="display: none">
+         <thead>
+            <tr>
+               <th>Station</th>
+               <th>Destination</th>
+               <th>Scheduled</th>
+               <th>Expected</th>
+               <th>Due In</th>
+            </tr>
+         </thead>
+         <tbody></tbody>
+      </table>
+
+      <script src="app.js"></script>
+   </body>
+</html>
