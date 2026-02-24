@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 [
   {
     "name": "Longford",
@@ -224,7 +223,7 @@
     "name": "Arklow",
     "code": "ARKLW"
   }
-=======
+]
 [
   {
     "name": "Longford",
@@ -450,5 +449,4 @@
     "name": "Arklow",
     "code": "ARKLW"
   }
->>>>>>> 3e5d40be2207a3b6cc6fbb0995a918343e862f49
 ]
