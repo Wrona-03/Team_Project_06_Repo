@@ -49,7 +49,6 @@ async function searchTrains() {
                 <td>${train.scheduled || "-"}</td>
                 <td>${train.expected || "-"}</td>
                 <td>${train.dueIn || "-"}</td>
-                // <td>${train.trainCode}</td>
                 <td><button onclick="viewStops('${train.trainCode}')">View Stops</button></td>
             `; //added button that shows train movement
       tableBody.appendChild(row);
@@ -60,12 +59,12 @@ async function searchTrains() {
   }
 }
 //Show the stops of each train using train code
-async function viewStops(trainCode) {
+async function viewStops(trainID) {
   //Fetch train movements data for selected train
   try {
-    const response = await fetch(`/api/trainMovements/${trainCode}`);
+    const response = await fetch(`/api/trainMovements/${trainID}`);
     const stops = await response.json();
-    let stopCount = 1;
+    
     if (stops.length === 0) {
       alert("No stops found.");
       return;
@@ -75,14 +74,15 @@ async function viewStops(trainCode) {
     //Append each ride stop as list item
     stops.forEach((stop) => {
       const listItem = document.createElement("li");
-      if (stop.locationType === "S") {
+      //show only stops that are "S" (passenger stops) or "O" (origin) or "D" (destination)
+      if (stop.locationType === "S" || stop.locationType === "O" || stop.locationType === "D" ) { 
         listItem.innerHTML = `${stop.location}`;
         stopsList.appendChild(listItem);
-        stopCount++;
+        
       }
     });
 
-    stopsTitle.textContent = `Ride ${stopCount} stops`;
+    stopsTitle.textContent = `Train service for ${trainID}`;
 
   } catch (error) {
     console.log(error);
