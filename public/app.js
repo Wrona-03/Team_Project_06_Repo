@@ -49,7 +49,7 @@ async function searchTrains() {
                 <td>${train.scheduled || "-"}</td>
                 <td>${train.expected || "-"}</td>
                 <td>${train.dueIn || "-"}</td>
-                <td>${train.trainCode}</td>
+                // <td>${train.trainCode}</td>
                 <td><button onclick="viewStops('${train.trainCode}')">View Stops</button></td>
             `; //added button that shows train movement
       tableBody.appendChild(row);
