@@ -1,15 +1,18 @@
 require("dotenv").config();
+const geolib = require('geolib');
 
 const express = require("express"); //  Express for server
 const xml2js = require("xml2js"); // Parsing XML from Irish Rail API
 const cors = require("cors"); // Allows requests from frontend
 const stations = require("./stations.json"); // List of stations with codes and names 
+const stopsData = require('./stopsData.json'); //List of stations with names and assigned zones
 
 // Create Express app 
 const app = express();
 
 app.use(cors());
 app.use(express.static("public"));
+
 
 //Get a train's stops
 app.get("/api/trainMovements/:trainCode", async (req, res)=>{
@@ -52,6 +55,46 @@ catch (error) {
         res.status(500).json({ error: "Could not fetch train movements data" });
     }
 });
+
+//Get list of stops tagged by zone
+app.get("/api/stops", (req, res) => {
+    res.json(stopsData);
+});
+
+//Get list of stations with coordinates included
+app.get("/api/stationLocations", async (req,res) => {
+     try {
+        const response = await fetch(
+            `https://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML`,
+            {
+                headers: {
+                    "User-Agent": "Mozilla/5.0",
+                    "Accept": "application/xml"
+                }
+            }
+        );
+
+        const xml = await response.text();
+
+        // Parse XML response
+        const parser = new xml2js.Parser({ explicitArray: false });
+        const result = await parser.parseStringPromise(xml);
+        const stations = result?.ArrayOfObjStation?.objStation;
+       const stationArray = Array.isArray(stations) ? stations : [stations];
+
+        const formatted = stationArray.map(station => ({
+            name: station.StationDesc,
+            code:station.StationCode,
+            latitude: parseFloat(station.StationLatitude), //convert coordinates to float
+            longitude: parseFloat(station.StationLongitude)
+        }));
+
+        res.json(formatted);
+
+    } catch (error) {
+        res.status(500).json({ error: "Could not fetch station data" });
+    }});
+
 
 
 // Get list of stations
@@ -112,15 +155,12 @@ res.json(limitedResults);
 
 
 
-
-app.get("/bikes", async (req, res)=>{
+//Get Live Bikes api 
+app.get("/api/bikes", async (req, res)=>{
     try{
         const response = await fetch(`https://api.jcdecaux.com/vls/v1/stations?contract=Dublin&apiKey=${process.env.bikes_APIKey}`) 
         if (!response.ok) {
-        console.log("API KEY:", process.env.bikes_APIKey)
-
             throw Error("Could not fetch data");
-            
         }
     
         const data = await response.json();
@@ -133,6 +173,31 @@ app.get("/bikes", async (req, res)=>{
     }
 
 }); 
+
+
+app.get("/api/bikes/nearby", async (req, res) => {
+    const { lat, lng } = req.query;
+
+    const response = await fetch(`https://api.jcdecaux.com/vls/v1/stations?contract=Dublin&apiKey=${process.env.bikes_APIKey}`);
+    const bikes = await response.json();
+
+    const nearby = [];
+
+    bikes.forEach(bike => {
+        const distance = geolib.getDistance({ latitude: lat, longitude: lng },
+    { latitude: bike.position.lat, longitude: bike.position.lng });
+        if (distance < 500) {
+            nearby.push({
+                name: bike.name,
+                available_bikes: bike.available_bikes,
+                available_stands: bike.available_bike_stands,
+                distance: Math.round(distance)
+            });
+        }
+    });
+
+    res.json(nearby);
+});
 
 app.listen(3000, () => {    
     console.log("Server running at http://localhost:3000");
