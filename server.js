@@ -195,7 +195,8 @@ app.get("/api/bikes/nearby", async (req, res) => {
             });
         }
     });
-
+    //sort by distance descending
+    nearby.sort((a, b) => a.distance - b.distance);
     res.json(nearby);
 });
 

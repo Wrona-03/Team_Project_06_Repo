@@ -11,7 +11,16 @@
         <option value="">Loading Stops...</option>
     </select>
     <button id="bikesBtn">See nearest bike stands</button>
-      <script src="bikes.js"></script>
-
+    <div class="results-section">
+        <div id="errorMsg"></div>
+        <table id="bikesTable" style="display: none;">
+            <th>Name</th>
+            <th>Available Bikes</th>
+            <th>Available Stands</th>
+            <th>Distance</th>
+        </table>
+    </div>
+    <script src="bikes.js"></script>
+    
 </body>
 </html>
