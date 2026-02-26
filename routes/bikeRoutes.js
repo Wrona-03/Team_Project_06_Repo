@@ -80,6 +80,7 @@ bikeRoutes.get("/api/bikes/nearby", async (req, res) => {
     const nearby = [];
 
     bikes.forEach(bike => {
+        //use getDistance function from geolib to get distance between coordiantes
         const distance = geolib.getDistance({ latitude: lat, longitude: lng },
     { latitude: bike.position.lat, longitude: bike.position.lng });
         if (distance < 500) {

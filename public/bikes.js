@@ -56,7 +56,7 @@ async function searchBikes(){
           <td>${bikeStation.name|| "-"}</td>
           <td>${bikeStation.available_bikes|| "-"}</td>
           <td>${bikeStation.available_stands|| "-"}</td>
-          <td>${bikeStation.distance|| "-"}</td>`;
+          <td>${bikeStation.distance + " m"|| "-"}</td>`;
           bikesTable.appendChild(row);
 
       });
