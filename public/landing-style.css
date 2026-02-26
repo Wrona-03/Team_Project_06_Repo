@@ -1,0 +1,48 @@
+body {
+  background-color: #f5f7fa;
+}
+
+.train-banner {
+  height: 220px;
+  background: linear-gradient(135deg, #04b976, #037f51);
+}
+
+.train-banner h1 {
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.content-box {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+}
+
+.content-image {
+  border-radius: 16px;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+}
+
+.train-cta {
+  width: 100%;
+  padding: 2.2rem 1rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  border-radius: 0;
+  color: #ffffff;
+  border: none;
+  background: linear-gradient(270deg, #ff6a00, #ffcc00, #ff6a00);
+  background-size: 400% 400%;
+  animation: trainGlow 6s ease infinite;
+}
+
+.train-cta:hover {
+  transform: scale(1.01);
+}
+
+@keyframes trainAni {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}

@@ -1,14 +1,26 @@
+require("dotenv").config();
+
+
 const express = require("express"); //  Express for server
 const xml2js = require("xml2js"); // Parsing XML from Irish Rail API
 const cors = require("cors"); // Allows requests from frontend
 const path = require("path");
+
+//json files
 const stations = require("./stations.json"); // List of stations with codes and names
+
+
+//Routes
+const bikesRouter = require('./routes/bikeRoutes');
+const stopsRouter = require('./routes/stopsRoutes');
+
 // Create Express app
 const app = express();
 
 app.use(cors());
 app.use(express.static(path.join(__dirname,"public")));
 app.get("/", (_req, res) => res.sendFile(path.join(__dirname, "index.html")));
+app.get("/index.html", (_req, res) => res.sendFile(path.join(__dirname, "index.html")));
 app.get("/styles.css", (_req, res) => res.sendFile(path.join(__dirname, "styles.css")));
 app.get("/app.js", (_req, res) => res.sendFile(path.join(__dirname, "app.js")));
 
@@ -54,7 +66,8 @@ app.get("/api/station/:code", async (req, res) => {
                 destination: train.Destination,
                 scheduled,
                 expected,
-                dueIn: parseInt(train.Duein, 10) || 0 // converts DueIn to int
+                dueIn: parseInt(train.Duein, 10) || 0, // converts DueIn to int
+                trainCode: train.Traincode
             };
         });
 
@@ -71,6 +84,16 @@ res.json(limitedResults);
         res.status(500).json({ error: "Could not fetch train data" });
     }
 });
+
+
+//Get bikes routes
+app.use('/',bikesRouter);
+//Get stops routes
+app.use('/',stopsRouter);
+
+
+
+
 
 app.listen(3000, () => {    
     console.log("Server running at http://localhost:3000");
