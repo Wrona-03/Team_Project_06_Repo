@@ -1,7 +1,10 @@
 const stopsSelect = document.getElementById("stops-select");
 const bikesBtn = document.getElementById("bikes-btn");
+const allBikesBtn = document.getElementById("all-bikes-btn");
 const errorMsg = document.getElementById("error-msg");
 const bikesTable = document.getElementById("bikes-table");
+const resultsSection = document.getElementById("results-section");
+const tableBody = document.getElementById("table-body");
 
 
 //load train stops from zone 1
@@ -27,9 +30,14 @@ async function loadStops(){
 async function searchBikes(){
     errorMsg.textContent = "";
     bikesTable.style.display = "none";
+    tableBody.innerHTML = "";
 
   //get selected train station
   const stationName = stopsSelect.value;
+  //handle no input
+  if(!stationName){
+    errorMsg.textContent = "Please select a stop";
+  }
   //get coordinates
   try {
     const response = await fetch('/api/stationLocations');
@@ -57,7 +65,7 @@ async function searchBikes(){
           <td>${bikeStation.available_bikes|| "-"}</td>
           <td>${bikeStation.available_stands|| "-"}</td>
           <td>${bikeStation.distance + " m"|| "-"}</td>`;
-          bikesTable.appendChild(row);
+          tableBody.appendChild(row);
 
       });
 
@@ -67,10 +75,40 @@ async function searchBikes(){
   catch(error){
     console.log(error);
   }
-  
-  
+}
+async function getAllBikes(){
+  errorMsg.textContent = "";
+    bikesTable.style.display = "none";
+    tableBody.innerHTML = "";
+
+    try{
+      const result =  await fetch(`/api/bikes`);
+      const bikeStations = await result.json();
+      console.log(bikeStations[0]);
+      if (bikeStations.length === 0) {
+        errorMsg.textContent = "No bikes nearby";
+        return;
+      }
+      else{
+          bikesTable.style.display = "table";
+          bikeStations.forEach(bikeStation=>{
+          const row = document.createElement("tr");
+            row.innerHTML = `
+            <td>${bikeStation.name|| "-"}</td>
+            <td>${bikeStation.available_bikes|| "-"}</td>
+            <td>${bikeStation.available_bike_stands|| "-"}</td>
+            <td>${"Select a station"}</td>`;
+            tableBody.appendChild(row);
+
+          });
+      }
+    }
+    catch(error){
+    console.log(error);
+  }
 }
 
 
 bikesBtn.addEventListener("click", searchBikes);
+allBikesBtn.addEventListener("click", getAllBikes);
 loadStops();

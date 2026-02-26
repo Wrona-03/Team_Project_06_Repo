@@ -98,3 +98,18 @@ button:hover {
 #stops-list > ul{
     background-color: none;
 }
+
+/* Bikes section*/
+#all-bikes-btn{
+    background-color: rgb(69, 69, 218);
+}
+#bikes-table{    
+    border: 1px black solid;
+    border-collapse: collapse;
+    margin-top: 20px;
+
+}
+#bikes-table td,#bikes-table th {
+    padding: 1rem;
+    border: 1px black solid;
+}
