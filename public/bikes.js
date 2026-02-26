@@ -1,7 +1,7 @@
-const stopsSelect = document.getElementById("stopsSelect");
-const bikesBtn = document.getElementById("bikesBtn");
-const errorMsg = document.getElementById("errorMsg");
-const bikesTable = document.getElementById("bikesTable");
+const stopsSelect = document.getElementById("stops-select");
+const bikesBtn = document.getElementById("bikes-btn");
+const errorMsg = document.getElementById("error-msg");
+const bikesTable = document.getElementById("bikes-table");
 
 //load train stops from zone 1
 async function loadStops(){

@@ -1,3 +1,5 @@
+const stopsTitle = document.getElementById("stops-title");
+const stopsList = document.getElementById("stops-list");
 
 //Show the stops of each train using train code
 async function viewStops(trainID) {
