@@ -1,104 +1,17 @@
-require("dotenv").config();
-const geolib = require('geolib');
-
 const express = require("express"); //  Express for server
 const xml2js = require("xml2js"); // Parsing XML from Irish Rail API
 const cors = require("cors"); // Allows requests from frontend
-const stations = require("./stations.json"); // List of stations with codes and names 
-const stopsData = require('./stopsData.json'); //List of stations with names and assigned zones
+const path = require("path");
+const stations = require("./stations.json"); // List of stations with codes and names
 
-//Routes
-const bikesRouter = require('./routes/bikeRoutes');
-
-// Create Express app 
+// Create Express app
 const app = express();
 
 app.use(cors());
-app.use(express.static("public"));
 
-
-//Get a train's stops
-app.get("/api/trainMovements/:trainCode", async (req, res)=>{
-    const trainCode = req.params.trainCode;
-   
-   try {
-        const today = new Date();
-        const formattedDate = today.toLocaleDateString("en-GB", {
-            day: "2-digit",
-            month: "short",
-            year: "numeric"
-        });
-
-        const encodedDate = encodeURIComponent(formattedDate);
-       
-        const response = await fetch(
-            `https://api.irishrail.ie/realtime/realtime.asmx/getTrainMovementsXML?TrainId=${trainCode}&TrainDate=${encodedDate}`
-        );
-     const xml = await response.text();
-
-        const parser = new xml2js.Parser({ explicitArray: false });
-        const result = await parser.parseStringPromise(xml);
-
-        const movements = result?.ArrayOfObjTrainMovements?.objTrainMovements;
-
-        if (!movements) return res.json([]);
-
-        const movementArray = Array.isArray(movements) ? movements : [movements];
-
-        const formattedStops = movementArray.map(stop => ({
-            location: stop.LocationFullName,
-            locationType: stop.LocationType
-            // , arrival: stop.ExpectedArrival,
-            // departure: stop.ExpectedDeparture
-        }));
-        res.json(formattedStops);
-    }
-catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "Could not fetch train movements data" });
-    }
-});
-
-//Get list of stops tagged by zone
-app.get("/api/stops", (req, res) => {
-    res.json(stopsData);
-});
-
-//Get list of stations with coordinates included
-app.get("/api/stationLocations", async (req,res) => {
-     try {
-        const response = await fetch(
-            `https://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML`,
-            {
-                headers: {
-                    "User-Agent": "Mozilla/5.0",
-                    "Accept": "application/xml"
-                }
-            }
-        );
-
-        const xml = await response.text();
-
-        // Parse XML response
-        const parser = new xml2js.Parser({ explicitArray: false });
-        const result = await parser.parseStringPromise(xml);
-        const stations = result?.ArrayOfObjStation?.objStation;
-       const stationArray = Array.isArray(stations) ? stations : [stations];
-
-        const formatted = stationArray.map(station => ({
-            name: station.StationDesc,
-            code:station.StationCode,
-            latitude: parseFloat(station.StationLatitude), //convert coordinates to float
-            longitude: parseFloat(station.StationLongitude)
-        }));
-
-        res.json(formatted);
-
-    } catch (error) {
-        res.status(500).json({ error: "Could not fetch station data" });
-    }});
-
-
+app.get("/", (_req, res) => res.sendFile(path.join(__dirname, "index.html")));
+app.get("/styles.css", (_req, res) => res.sendFile(path.join(__dirname, "styles.css")));
+app.get("/app.js", (_req, res) => res.sendFile(path.join(__dirname, "app.js")));
 
 // Get list of stations
 app.get("/api/stations", (req, res) => {
@@ -132,14 +45,19 @@ app.get("/api/station/:code", async (req, res) => {
         const trainArray = Array.isArray(trains) ? trains : [trains];
 
         // Formating of the train data for table
-        const formatted = trainArray.map(train => ({
-            station: train.Stationfullname,
-            destination: train.Destination,
-            scheduled: train.Schdepart,
-            expected: train.Expdepart,
-            dueIn: parseInt(train.Duein, 10) || 0, // converts DueIn to int
-            trainCode: train.Traincode
-        }));
+        const formatted = trainArray.map(train => {
+            const scheduled = train.Schdepart;
+            const expdepart = train.Expdepart;
+            // Expdepart is "00:00" for trains not yet at the station, fall back to scheduled
+            const expected = (!expdepart || expdepart === "00:00") ? scheduled : expdepart;
+            return {
+                station: train.Stationfullname,
+                destination: train.Destination,
+                scheduled,
+                expected,
+                dueIn: parseInt(train.Duein, 10) || 0 // converts DueIn to int
+            };
+        });
 
 // Sort by earliest due
 formatted.sort((a, b) => a.dueIn - b.dueIn);
@@ -148,20 +66,12 @@ formatted.sort((a, b) => a.dueIn - b.dueIn);
 const limitedResults = formatted.slice(0, 10);
 
 res.json(limitedResults);
-// res.json(formatted); Was giving http error
 
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Could not fetch train data" });
     }
 });
-
-//Bikes
-app.use('/',bikesRouter);
-
-
-
-
 
 app.listen(3000, () => {    
     console.log("Server running at http://localhost:3000");
