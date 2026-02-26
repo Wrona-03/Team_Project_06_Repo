@@ -1,5 +1,10 @@
 const express = require('express');
-const geolib = require('geolib');
+/* 
+library for calculating distance
+https://github.com/manuelbieh/geolib?utm_source=chatgpt.com 
+*/
+const geolib = require('geolib'); 
+
 const xml2js = require('xml2js');
 const stopsData = require('../stopsData.json'); //List of stations with names and assigned zones
 
