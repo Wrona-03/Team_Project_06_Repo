@@ -3,6 +3,7 @@ const bikesBtn = document.getElementById("bikes-btn");
 const errorMsg = document.getElementById("error-msg");
 const bikesTable = document.getElementById("bikes-table");
 
+
 //load train stops from zone 1
 async function loadStops(){
      try {
