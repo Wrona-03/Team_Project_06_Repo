@@ -1,0 +1,66 @@
+.fare_heading {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.user_guide {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.stop_note {
+  font-size: 14px;
+  font-display: italic;
+  text-align: center;
+}
+
+.main_content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.fare_calc {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 30px;
+  background-color: lightblue;
+  float: left;
+}
+
+.map_container {
+  margin-top: 30px;
+  background-color: bisque;
+}
+
+.fare_map {
+  float: right;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333333;
+}
+
+ul li {
+  float: left;
+}
+
+ul li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+ul li a:hover {
+  background-color: #111111;
+}
