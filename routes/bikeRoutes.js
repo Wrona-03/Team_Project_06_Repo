@@ -1,6 +1,50 @@
 const express = require('express');
 const geolib = require('geolib');
+const xml2js = require('xml2js');
+const stopsData = require('../stopsData.json'); //List of stations with names and assigned zones
+
 const bikeRoutes = express.Router();
+
+//Get list of stops tagged by zone
+bikeRoutes.get("/api/stops", (req, res) => {
+    res.json(stopsData);
+});
+
+//Get list of stations with coordinates included
+bikeRoutes.get("/api/stationLocations", async (req,res) => {
+     try {
+        const response = await fetch(
+            `https://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML`,
+            {
+                headers: {
+                    "User-Agent": "Mozilla/5.0",
+                    "Accept": "application/xml"
+                }
+            }
+        );
+
+        const xml = await response.text();
+
+        // Parse XML response
+        const parser = new xml2js.Parser({ explicitArray: false });
+        const result = await parser.parseStringPromise(xml);
+        const stations = result?.ArrayOfObjStation?.objStation;
+       const stationArray = Array.isArray(stations) ? stations : [stations];
+
+        const formatted = stationArray.map(station => ({
+            name: station.StationDesc,
+            code:station.StationCode,
+            latitude: parseFloat(station.StationLatitude), //convert coordinates to float
+            longitude: parseFloat(station.StationLongitude)
+        }));
+
+        res.json(formatted);
+
+    } catch (error) {
+        res.status(500).json({ error: "Could not fetch station data" });
+    }});
+
+
 
 //Get Live Bikes api 
 bikeRoutes.get("/api/bikes", async (req, res)=>{

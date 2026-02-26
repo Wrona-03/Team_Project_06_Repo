@@ -5,7 +5,7 @@ async function viewStops(trainID) {
   try {
     const response = await fetch(`/api/trainMovements/${trainID}`);
     const stops = await response.json();
-    
+    console.log(stops);
     if (stops.length === 0) {
       alert("No stops found.");
       return;

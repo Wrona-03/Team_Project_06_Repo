@@ -1,3 +1,8 @@
+const stationSelect = document.getElementById("stationSelect");
+const searchBtn = document.getElementById("searchBtn");
+const errorMsg = document.getElementById("errorMsg");
+const resultsCon = document.getElementById("resultsCon");
+const tableBody = resultsCon.querySelector("tbody");
 // Load stations
 async function loadStations() {
     try {
@@ -42,6 +47,7 @@ async function searchTrains() {
                 <td>${train.scheduled || "-"}</td>
                 <td>${expectedDisplay || "-"}</td>
                 <td>${train.dueIn || "-"}</td>
+                <td><button onclick="viewStops('${train.trainCode}')">View Stops</button></td>
             `;
             tableBody.appendChild(row);
         });
