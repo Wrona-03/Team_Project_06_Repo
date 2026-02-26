@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [
   {
     "_id": 301,
@@ -72,3 +73,79 @@
     "Weekly Cap": 24.0
   }
 ]
+=======
+[
+  {
+    "_id": 301,
+    "CardType": "Child",
+    "Zone 1 fare": 0.65,
+    "Zone 1 weekly": 7.8,
+    "Zone 1 monthly": 31.7,
+    "Zone 2 fare": 3.3,
+    "Zone 2 weekly": 10.6,
+    "Zone 2 monthly": 46.2,
+    "Zone 3 fare": 4.6,
+    "Zone 3 weekly": 13.0,
+    "Zone 3 monthly": 64.7,
+    "Zone 4 fare": 5.5,
+    "Zone 4 weekly": 22.2,
+    "Zone 4 monthly": 77.7,
+    "Daily Cap": 1.95,
+    "Weekly Cap": 7.8
+  },
+  {
+    "_id": 302,
+    "CardType": "Young Adult",
+    "Zone 1 fare": 3.0,
+    "Zone 1 weekly": 12.0,
+    "Zone 1 monthly": 48.0,
+    "Zone 2 fare": 5.0,
+    "Zone 2 weekly": 16.0,
+    "Zone 2 monthly": 70.0,
+    "Zone 3 fare": 7.0,
+    "Zone 3 weekly": 28.0,
+    "Zone 3 monthly": 98.0,
+    "Zone 4 fare": 8.4,
+    "Zone 4 weekly": 33.6,
+    "Zone 4 monthly": 117.6,
+    "Daily Cap": 3.0,
+    "Weekly Cap": 12.0
+  },
+  {
+    "_id": 303,
+    "CardType": "Student",
+    "Zone 1 fare": 3.0,
+    "Zone 1 weekly": 12.0,
+    "Zone 1 monthly": 48.0,
+    "Zone 2 fare": 5.0,
+    "Zone 2 weekly": 16.0,
+    "Zone 2 monthly": 70.0,
+    "Zone 3 fare": 7.0,
+    "Zone 3 weekly": 28.0,
+    "Zone 3 monthly": 98.0,
+    "Zone 4 fare": 8.4,
+    "Zone 4 weekly": 33.6,
+    "Zone 4 monthly": 117.6,
+    "Daily Cap": 3.0,
+    "Weekly Cap": 12.0
+  },
+  {
+    "_id": 304,
+    "CardType": "Adult",
+    "Zone 1 fare": 6.0,
+    "Zone 1 weekly": 24.0,
+    "Zone 1 monthly": 96.0,
+    "Zone 2 fare": 10.0,
+    "Zone 2 weekly": 32.0,
+    "Zone 2 monthly": 140.0,
+    "Zone 3 fare": 14.0,
+    "Zone 3 weekly": 56.0,
+    "Zone 3 monthly": 196.0,
+    "Zone 4 fare": 16.8,
+    "Zone 4 weekly": 67.2,
+    "Zone 4 monthly": 235.2,
+    "Daily Cap": 6.0,
+    "Weekly Cap": 24.0
+  }
+]
+>>>>>>> a1cfec07dda7b818c2a6b64a0f9b7eb6e10be390
