@@ -1,0 +1,83 @@
+/* Container Component */
+.train-con {
+    max-width: 550px;
+    padding: 25px;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    font-family: Arial, sans-serif;
+}
+
+/* Title */
+.train-title {
+    margin-bottom: 20px;
+    color: #1e7f4f;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/* Controls */
+.station-select {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+select {
+    flex: 1;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+button {
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: none;
+    background-color: #1e7f4f;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s ease;
+}
+
+button:hover {
+    background-color: #16633c;
+}
+
+/* Error */
+.error-message {
+    color: #c0392b;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+/* Table */
+.table-con {
+    overflow-x: auto;
+}
+
+.results-con {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    display: none;
+}
+
+.results-con th {
+    background-color: #1e7f4f;
+    color: white;
+    padding: 8px;
+    text-align: center;
+}
+
+.results-con td {
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.results-con tr:hover {
+    background-color: #f2f9f5;
+}
