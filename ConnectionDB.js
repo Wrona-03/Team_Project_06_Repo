@@ -11,7 +11,28 @@ const client = new MongoClient(uri, {
   },
 });
 
-async function run() {
+let db;
+
+async function connectToDatabase() {
+  if (!db) {
+    await client.connect();
+    db = client.db("EasyFareDatabase");
+    console.log("Connected to MongoDB");
+  }
+  return db;
+}
+
+function getDB() {
+  if (!db) {
+    throw new Error("Database not connected. Call connectToDatabase() first.");
+  }
+  return db;
+}
+module.exports = { connectToDatabase, getDB };
+
+// original code from MongoDB website, for testing connection
+
+/* async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
@@ -25,4 +46,4 @@ async function run() {
     await client.close();
   }
 }
-run().catch(console.dir);
+run().catch(console.dir); */
