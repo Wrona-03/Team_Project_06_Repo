@@ -40,13 +40,13 @@
         <br />
         <label for="leap_card">Leap Card Type:</label>
         <select id="leap_card" name="leap_card" required>
-            <option value="child">Child</option>
-            <option value="young_adult">Young Adult</option>
-            <option value="student">Student</option>
-            <option value="adult">Adult</option>
+          <option value="Child">Child</option>
+          <option value="Young Adult">Young Adult</option>
+          <option value="Student">Student</option>
+          <option value="Adult">Adult</option>
         </select>
         <br />
-        <button type="submit">Find my Fare</button>
+        <button type="button" id = "fare_button">Find my Fare</button>
         <br />
         <!-- the table where the fare information from MongoDB will display -->
         <table id = "fare_table">
@@ -56,9 +56,9 @@
                 <th>Monthly Fare</th>
             </tr>
             <tr>
-              <td id = ""></td> <!-- holds the zone fare -->
-              <td id = ""></td> <!-- holds the weekly fare -->
-              <td id = ""></td> <!-- holds the monthly fare -->
+              <td id = "single_fare"></td> <!-- holds the zone fare -->
+              <td id = "weekly_fare"></td> <!-- holds the weekly fare -->
+              <td id = "monthly_fare"></td> <!-- holds the monthly fare -->
             </tr>
         </table>
         </div>
@@ -68,6 +68,39 @@
             <img src="/imgs/Leap-Fare_Zones.png" alt = "A map of the Dublin commuter zones" class = "fare_map" width = 500 height= 500/>
          </div>
     </div>
-    </body>
+
+    <!-- js code to put the data in the table-->
+     <script>
+      document.getElementById("fare_button").addEventListener("click", async () => {
+
+        const stopName = document.getElementById("stop_name").value;
+        const cardType = document.getElementById("leap_card").value;
+
+        try {
+          const response = await fetch("/calculate-fare", {
+            method: "POST",
+            headers: {
+              "Content-Type" : "application/json"
+            },
+            body: JSON.stringify({ stopName, cardType})
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            alert(data.error);
+            return;
+          }
+
+          // Insert values into the table
+          document.getElementById("single_fare").textContent = data.singleFare;
+          document.getElementById("weekly_fare").textContent = data.weeklyFare;
+          document.getElementById("monthly_fare").textContent = data.monthlyFare;
+        } catch (error) {
+          console.error("Error fetching fare: ", error);
+          alert("Something went wrong.");
+        }
+      });
+     </script>
   </body>
 </html>
