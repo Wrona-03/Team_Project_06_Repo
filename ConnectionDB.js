@@ -16,7 +16,7 @@ let db;
 async function connectToDatabase() {
   if (!db) {
     await client.connect();
-    db = client.db("EasyFareDatabase");
+    db = client.db("EasyFareDB");
     console.log("Connected to MongoDB");
   }
   return db;
