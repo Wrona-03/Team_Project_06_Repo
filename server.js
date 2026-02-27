@@ -95,7 +95,6 @@ app.use('/',stopsRouter);
 //DB section
 
 const { connectToDatabase, getDB } = require("./ConnectionDB");
-
 let db;
 
 // Connect to MongoDB before starting the server
@@ -112,27 +111,29 @@ app.post("/calculate-fare", async (req, res) => {
   const { stopName, cardType } = req.body;
 
   try {
+    const safeInput = stopName.trim().replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
     const stop = await db
       .collection("Stops")
-      .findOne({ name: new RegExp(`^${stopName}$`, "i") });
+      .findOne({ name: new RegExp(stopName, "i") });
     if (!stop) return res.status(404).json({ error: "Stop not found." });
 
     const card = await db
       .collection("Ticket_Types")
-      .findOne({ Cardtype: cardType });
+      .findOne({ CardType: cardType });
     if (!card) return res.status(404).json({ error: "Card type not found." });
 
     // Calculate fare based on zone and card type
-    const zone = stop.zone_number;
+    const zone = stop.zone_Number;
 
     // This code looks at the zone number and displays the fare for that zone and card type.
     res.json({
       stop: stop.name,
       zone,
-      cardType: card.Cardtype,
+      cardType: card.CardType,
       singleFare: card[`Zone ${zone} fare`],
-      weeklyFare: card[`Zone ${zone} weekly fare`],
-      monthlyFare: card[`Zone ${zone} monthly fare`],
+      weeklyFare: card[`Zone ${zone} weekly`],
+      monthlyFare: card[`Zone ${zone} monthly`],
     });
   } catch (err) {
     console.error("Error calculating fare:", err);
