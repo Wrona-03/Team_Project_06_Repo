@@ -70,7 +70,8 @@ app.get("/api/station/:code", async (req, res) => {
                 scheduled,
                 expected,
                 dueIn: parseInt(train.Duein, 10) || 0, // converts DueIn to int
-                trainCode: train.Traincode
+                trainCode: train.Traincode,
+                lastLocation: train.Lastlocation
             };
         });
 
