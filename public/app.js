@@ -48,7 +48,7 @@ async function searchTrains() {
                 <td>${expectedDisplay || "-"}</td>
                 <td>${train.dueIn || "-"}</td>
                 <td>${train.lastLocation || "-"}</td>
-                <td><button onclick="viewStops('${train.trainCode}')">View Stops</button></td>
+                <td><button onclick="viewStops('${train.trainCode}', '${code}')">View Stops</button></td>
             `;
             tableBody.appendChild(row);
         });
