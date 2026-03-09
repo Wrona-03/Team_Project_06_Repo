@@ -1,0 +1,117 @@
+/* Page text */
+
+.fare_heading {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.user_guide {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.stop_note {
+  font-size: 14px;
+  font-style: italic;
+  text-align: center;
+}
+
+/* Main page CSS */
+
+.main_content {
+  display: flex;
+  max-width: 1200px;
+  margin: 40px auto;
+}
+
+.fare_calc,
+.map_container {
+  flex: 1;
+  display: flex;
+  align-items: center; /* vertical centering */
+}
+
+/* Position calculator in the middle of it's div */
+.fare_calc {
+  justify-content: center;
+}
+
+/* Calculator card */
+.calc_card {
+  width: 350px;
+  padding: 25px;
+  background-color: #9ec1cf;
+  border-radius: 8px;
+}
+
+/* Center map in right half */
+.map_container {
+  justify-content: center;
+}
+
+.map_container img {
+  max-width: 80%;
+  height: auto;
+}
+
+/* FAQ CSS */
+
+.faq_section {
+  width: 85%;
+  margin: 60px auto;
+}
+
+.faq_section h2 {
+  margin-bottom: 20px;
+}
+
+.faq_section details {
+  margin-bottom: 15px;
+  background: #f4f4f4;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+/* Nav Bar CSS */
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+ul li {
+  float: left;
+}
+
+ul li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+ul li a:hover {
+  background-color: #111;
+}
+
+/* Table CSS */
+
+table {
+  border: 1px solid #111;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  padding: 10px;
+  border: 1px solid #111;
+}
