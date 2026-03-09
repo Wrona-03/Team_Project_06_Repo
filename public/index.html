@@ -1,21 +1,17 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Easy Fare=</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <link rel="stylesheet" href="landing-style.css">
-  <link rel="stylesheet" href="fare-style.css">
-
-</head>
-<body>
-      <nav class="navbar">
+  <head>
+    <title>EasyFare Calculator</title>
+    <!-- link to css -->
+     <link rel = "stylesheet" href = "style.css">
+  </head>
+  <body>
+    <!-- nav bar code -->
+    <nav class="navbar">
       <ul class="nav-list">
         <li><a href="/">Home</a></li>
-        <li><a href="/">Live Departures</a></li>
-        <li><a href="/">Bicycle Checker</a></li>
+        <li><a href="trainTime.html">Live Departures</a></li>
+        <li><a href="bikes.html">Bicycle Checker</a></li>
         <li><a href="index.html">Fare Calculator</a></li>
       </ul>
     <h1 class="fare_heading">Fare Calculator</h1>
@@ -33,6 +29,7 @@
 
         <!-- to the left side of the page-->
         <div class="fare_calc">
+          <div class = "calc_card">
         <label for="stop_name">Stop Name:</label>
         <input
             type="text"
@@ -49,10 +46,19 @@
           <option value="Adult">Adult</option>
         </select>
         <br />
+        <label for = "destination_name">Destination (optional):</label>
+        <input 
+        type = "text"
+        id = "destination_name"
+        name = "destination_name"
+        placeholder = "Enter destination stop"
+        />
+        <br />
         <button type="button" id = "fare_button">Find my Fare</button>
         <br />
         <!-- the table where the fare information from MongoDB will display -->
-        <table id = "fare_table">
+         <h3 id="fare_result_text" style="display:none;"></h3>
+        <table id = "fare_table" style="display:none;">
             <tr>
                 <th>Zone Fare</th>
                 <th>Weekly Fare</th>
@@ -65,6 +71,7 @@
             </tr>
         </table>
         </div>
+        </div>
 
         <!-- to the right side of the page-->
          <div class = "map_container">
@@ -76,34 +83,103 @@
      <script>
       document.getElementById("fare_button").addEventListener("click", async () => {
 
-        const stopName = document.getElementById("stop_name").value;
-        const cardType = document.getElementById("leap_card").value;
+  const stopName = document.getElementById("stop_name").value;
+  const destinationName = document.getElementById("destination_name").value;
+  const cardType = document.getElementById("leap_card").value;
 
-        try {
-          const response = await fetch("/calculate-fare", {
-            method: "POST",
-            headers: {
-              "Content-Type" : "application/json"
-            },
-            body: JSON.stringify({ stopName, cardType})
-          });
+  try {
+    const response = await fetch("/calculate-fare", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ stopName, destinationName, cardType })
+    });
 
-          const data = await response.json();
+    const data = await response.json();
 
-          if (!response.ok) {
-            alert(data.error);
-            return;
-          }
+    if (!response.ok) {
+      alert(data.error);
+      return;
+    }
 
-          // Insert values into the table
-          document.getElementById("single_fare").textContent = data.singleFare;
-          document.getElementById("weekly_fare").textContent = data.weeklyFare;
-          document.getElementById("monthly_fare").textContent = data.monthlyFare;
-        } catch (error) {
-          console.error("Error fetching fare: ", error);
-          alert("Something went wrong.");
-        }
-      });
+    // Insert values into the table
+    document.getElementById("single_fare").textContent = data.singleFare;
+    document.getElementById("weekly_fare").textContent = data.weeklyFare;
+    document.getElementById("monthly_fare").textContent = data.monthlyFare;
+
+    // Show result text 
+    const resultText = document.getElementById("fare_result_text");
+    const table = document.getElementById("fare_table")
+
+    if (data.destination) {
+      resultText.textContent = `Fare from ${data.origin} to ${data.destination}`;
+    } else {
+      resultText.textContent = `Fare for ${data.origin}`;
+    }
+
+    resultText.style.display = "block";
+    table.style.display = "table"; 
+
+
+  } catch (error) {
+    console.error("Error fetching fare: ", error);
+    alert("Something went wrong.");
+  }
+});
      </script>
+
+  <!-- Frequently asked questions section -->
+   <section class=" faq_section">
+    <h2>Frequently Asked Questions</h2>
+
+    <div class = "faq_item">
+      <details>
+        <summary>How does the fare calculator know which zone a stop is in?</summary>
+        <p>
+          Each stop is stored in a database along with its assigned zone number.
+          When you enter a stop, the calculator searches the database, retrieves its zone, and uses that information to calculate the correct fare.
+        </p>
+      </details>
+    </div>
+
+    <div class = "faq_item">
+      <details>
+        <summary>How are the fares calculated?</summary>
+        <p>
+          The fare is determined based on the highest zone travelled.
+          For example, travelling from Zone 1 to Zone 3 results in a Zone 3 fare.
+          If both stops are in Zone 1, the Zone 1 fare applies.
+        </p>
+      </details>
+    </div>
+
+    <div class = "faq_item">
+      <details>
+        <summary>Do I need to enter a destination?</summary>
+        <p>
+          No. If no destination is entered, the calculator assumes travel within the origin stop's zone and calculates the fare accordingly.
+        </p>
+      </details>
+    </div>
+
+    <div class = "faq_item">
+      <details>
+        <summary>Do I need to use the full name for a railway station?</summary>
+        <p>
+          No. If you enter "Heuston", instead of "Dublin Heuston", the calculator recognises your input as "Dublin Heuston". However, if you mispell a stop, the calculator may not recognise the input. Please ensure correct spelling for optimal efficiency.
+        </p>
+      </details>
+    </div>
+
+    <div class = "faq_item">
+      <details>
+        <summary>Will the calculator expand to include the Cork commuter zone?</summary>
+        <p>
+          Currently, there are no plans to expand the calculator to include Cork's commuter zone. However, this is subject to change with the ongoing developments in Cork.
+        </p>
+      </details>
+    </div>
+   </section>
   </body>
 </html>
