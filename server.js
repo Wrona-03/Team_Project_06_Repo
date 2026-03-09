@@ -1,10 +1,33 @@
-const express = require("express");
+require("dotenv").config();
+
+
+const express = require("express"); //  Express for server
+const xml2js = require("xml2js"); // Parsing XML from Irish Rail API
+const cors = require("cors"); // Allows requests from frontend
 const path = require("path");
 const { connectToDatabase, getDB } = require("./ConnectionDB");
 
+//json files
+const stations = require("./stations.json"); // List of stations with codes and names
+
+
+//Routes
+const bikesRouter = require('./routes/bikeRoutes');
+const stopsRouter = require('./routes/stopsRoutes');
+
+// Create Express app
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // For form data
+
+
+app.use(cors());
+app.use(express.static(path.join(__dirname,"public")));
+app.get("/", (_req, res) => res.sendFile(path.join(__dirname, "index.html")));
+app.get("/index.html", (_req, res) => res.sendFile(path.join(__dirname, "index.html")));
+app.get("/styles.css", (_req, res) => res.sendFile(path.join(__dirname, "styles.css")));
+app.get("/app.js", (_req, res) => res.sendFile(path.join(__dirname, "app.js")));
+
 
 
 app.use(cors());
@@ -85,7 +108,6 @@ app.use('/',stopsRouter);
 
 //DB section
 
-const { connectToDatabase, getDB } = require("./ConnectionDB");
 let db;
 
 // Connect to MongoDB before starting the server
