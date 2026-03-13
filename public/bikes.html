@@ -1,40 +1,52 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>bikes</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="fare-style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bicycle Checker</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="fare-style.css" />
+  </head>
+  <body>
     <nav class="navbar">
+      <button class="burger">&#9776;</button>
       <ul class="nav-list">
         <li><a href="/">Home</a></li>
-        <li><a href="trainTime.html">Live Departures</a></li>
-        <li><a href="bikes.html">Bicycle Checker</a></li>
+        <li><a href="/trainTime.html">Live Departures</a></li>
+        <li><a href="/bikes.html">Bicycle Checker</a></li>
         <li><a href="fare_calculator.html">Fare Calculator</a></li>
       </ul>
-    </nav>  
-    <h3>Zone 1 stops</h3>
-    <select name="" id="stops-select">
-        <option value="">Loading Stops...</option>
-    </select>
-    <button id="bikes-btn">See nearest bike stands</button>
-    <button id="all-bikes-btn">See all bike stands</button>
+    </nav>
 
-    <div class="results-section">
-        <div id="error-msg"></div>
-        <table id="bikes-table" style="display: none;">
-            
-            <th>Name</th>
-            <th>Available Bikes</th>
-            <th>Available Stands</th>
-            <th>Distance</th>
-            <tbody id="table-body"></tbody>
+    <div class="train-con">
+      <h2 class="train-title">Bicycle Checker</h2>
+
+      <div class="station-select">
+        <div class="autocomplete">
+          <input id="stopsInput" type="text" placeholder="Search Zone 1 stop..." autocomplete="off" />
+        </div>
+        <button id="bikes-btn">Nearby Bikes</button>
+        <button id="all-bikes-btn">All Bikes</button>
+      </div>
+
+      <p class="error-message" id="error-msg"></p>
+
+      <div class="table-con">
+        <table id="bikes-table" class="results-con">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Available Bikes</th>
+              <th>Available Stands</th>
+              <th>Distance</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
         </table>
+      </div>
     </div>
+
     <script src="bikes.js" defer></script>
-    
-</body>
+    <script src="navbar.js" defer></script>
+  </body>
 </html>
