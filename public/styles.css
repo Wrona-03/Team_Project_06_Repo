@@ -1,0 +1,181 @@
+/* Container Component */
+.train-con {
+    width: 650px;
+    max-width: 650px;
+    padding: 25px;
+    border-radius: 12px;
+    background: #ffffff;
+    /* box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); */
+    font-family: Arial, sans-serif;
+}
+
+/* Title */
+.train-title, #stops-title {
+    margin-bottom: 20px;
+    color: #1e7f4f;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/* Controls */
+.station-select {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.autocomplete {
+    position: relative;
+    flex: 1;
+}
+
+.autocomplete input[type=text] {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+
+.autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+.autocomplete-items div:hover {
+    background-color: #e9e9e9;
+}
+
+.autocomplete-active {
+    background-color: DodgerBlue !important;
+    color: #ffffff;
+}
+
+button {
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: none;
+    background-color: #1e7f4f;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s ease;
+}
+
+button:hover {
+    background-color: #16633c;
+}
+
+.burger:hover {
+    background-color: #444444;
+}
+
+/* Error */
+.error-message {
+    color: #c0392b;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+/* Table */
+.table-con {
+    overflow-x: auto;
+}
+
+.results-con {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    display: none;
+}
+
+.results-con th {
+    background-color: #1e7f4f;
+    color: white;
+    padding: 8px;
+    text-align: center;
+}
+
+.results-con td {
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.results-con tr:hover {
+    background-color: #f2f9f5;
+}
+
+/* Stops section */
+
+
+.table-stops-wrapper {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+#stops-container {
+    min-width: 200px;
+    padding: 25px;
+}
+#stops-list > ul{
+    background-color: none;
+}
+
+/* Bikes section*/
+#all-bikes-btn {
+    background-color: rgb(69, 69, 218);
+}
+
+/* Media Queries */
+@media (max-width: 600px) {
+    .train-con {
+        width: 100%;
+        padding: 15px;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .station-select {
+        flex-wrap: wrap;
+    }
+
+    .station-select .autocomplete {
+        flex-basis: 100%;
+    }
+
+    .station-select button {
+        flex: 1;
+    }
+
+    .table-stops-wrapper {
+        flex-direction: column;
+    }
+
+    #stops-container {
+        min-width: unset;
+        padding: 15px;
+    }
+
+    .results-con {
+        font-size: 11px;
+    }
+
+    .results-con th, .results-con td {
+        padding: 5px;
+    }
+}
