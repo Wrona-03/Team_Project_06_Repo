@@ -1,3 +1,5 @@
+/* TO BE REPLACED WITH TITAS'S STYLING */
+
 /* Page text */
 
 .fare_heading {
@@ -30,55 +32,14 @@
 
 .fare_calc,
 .map_container {
-  flex: 1; /* take half the width each */
-  display: flex; /* make children flex containers */
-  flex-direction: column; /* stack children vertically */
-  align-items: center; /* horizontal centering */
-  justify-content: flex-start; /* vertical alignment at top */
-  margin: 10px; /* spacing between sides */
+  flex: 1;
+  display: flex;
+  align-items: center; /* vertical centering */
 }
 
 /* Position calculator in the middle of it's div */
 .fare_calc {
   justify-content: center;
-}
-
-#fare_table {
-  margin-top: 15px;
-}
-
-/* Table container */
-#fare_table {
-  border: 1px solid #111;
-  border-collapse: collapse;
-  width: 100%;
-  text-align: center;
-  margin-top: 20px;
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
-}
-
-/* Header cells */
-#fare_table th {
-  padding: 10px;
-  border: 1px solid #111;
-  background-color: #333;
-  color: #fff;
-  font-weight: bold;
-}
-
-/* Data cells */
-#fare_table td {
-  padding: 10px;
-  border: 1px solid #111;
-}
-
-/* Highlight null/unavailable caps */
-#fare_table td:empty::after,
-td:contains("—") {
-  content: "—";
-  color: #888;
-  font-style: italic;
 }
 
 /* Calculator card */
@@ -118,19 +79,20 @@ td:contains("—") {
 }
 
 /* Nav Bar CSS */
-.navbar > ul {
+
+ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #333333;
+  background-color: #333;
 }
 
-.navbar > ul > li {
+ul li {
   float: left;
 }
 
-.navbar > ul > li > a {
+ul li a {
   display: block;
   color: white;
   text-align: center;
@@ -138,8 +100,8 @@ td:contains("—") {
   text-decoration: none;
 }
 
-.navbar > ul > li > a:hover {
-  background-color: #111111;
+ul li a:hover {
+  background-color: #111;
 }
 
 .burger {
@@ -158,25 +120,10 @@ td:contains("—") {
   background-color: #444444;
 }
 
-/* Table CSS */
-
-#fare_table {
-  border: 1px solid #111;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-#fare_table th,
-td {
-  padding: 10px;
-  border: 1px solid #111;
-}
-
-
 /* Media Queries */
 @media (max-width: 600px) {
   .navbar {
-    background-color: #333333;
+    background-color: #333;
   }
 
   .burger {
@@ -185,14 +132,13 @@ td {
 
   .navbar > ul {
     display: none;
-    overflow: hidden;
   }
 
   .navbar.open > ul {
     display: block;
   }
 
-  .navbar > ul > li {
+  ul li {
     float: none;
     display: block;
   }
@@ -211,16 +157,25 @@ td {
     max-width: 100%;
   }
 
-  .faq_section {
-    width: 95%;
-    margin: 30px auto;
-  }
-
-  #fare_table {
+  table {
     font-size: 12px;
   }
 
-  #fare_table th, #fare_table td {
+  th, td {
     padding: 6px;
   }
+}
+
+/* Table CSS */
+
+table {
+  border: 1px solid #111;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  padding: 10px;
+  border: 1px solid #111;
 }
