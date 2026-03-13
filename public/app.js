@@ -1,36 +1,105 @@
-const stationSelect = document.getElementById("stationSelect");
+const stationInput = document.getElementById("stationInput");
 const searchBtn = document.getElementById("searchBtn");
 const errorMsg = document.getElementById("errorMsg");
 const resultsCon = document.getElementById("resultsCon");
 const tableBody = resultsCon.querySelector("tbody");
-// Load stations
+
+let stations = [];
+let selectedCode = "";
+
+function autocomplete(inp, stationArr) {
+    let currentFocus;
+
+    inp.addEventListener("input", function() {
+        closeAllLists();
+        const val = this.value;
+        selectedCode = "";
+        if (!val) return;
+        currentFocus = -1;
+
+        const itemsDiv = document.createElement("div");
+        itemsDiv.setAttribute("id", this.id + "autocomplete-list");
+        itemsDiv.setAttribute("class", "autocomplete-items");
+        this.parentNode.appendChild(itemsDiv);
+
+        stationArr.forEach(station => {
+            if (station.name.toLowerCase().includes(val.toLowerCase())) {
+                const item = document.createElement("div");
+                const i = station.name.toLowerCase().indexOf(val.toLowerCase());
+                item.innerHTML = station.name.substring(0, i)
+                    + "<strong>" + station.name.substring(i, i + val.length) + "</strong>"
+                    + station.name.substring(i + val.length);
+                item.dataset.code = station.code;
+                item.addEventListener("click", function() {
+                    inp.value = station.name;
+                    selectedCode = this.dataset.code;
+                    closeAllLists();
+                });
+                itemsDiv.appendChild(item);
+            }
+        });
+    });
+
+    inp.addEventListener("keydown", function(e) {
+        let list = document.getElementById(this.id + "autocomplete-list");
+        let items = list ? list.getElementsByTagName("div") : [];
+        if (e.keyCode === 40) {
+            currentFocus++;
+            addActive(items);
+        } else if (e.keyCode === 38) {
+            currentFocus--;
+            addActive(items);
+        } else if (e.keyCode === 13) {
+            e.preventDefault();
+            if (currentFocus > -1 && items[currentFocus]) items[currentFocus].click();
+        }
+    });
+
+    function addActive(items) {
+        if (!items.length) return;
+        removeActive(items);
+        if (currentFocus >= items.length) currentFocus = 0;
+        if (currentFocus < 0) currentFocus = items.length - 1;
+        items[currentFocus].classList.add("autocomplete-active");
+    }
+
+    function removeActive(items) {
+        Array.from(items).forEach(item => item.classList.remove("autocomplete-active"));
+    }
+
+    function closeAllLists(elmnt) {
+        Array.from(document.getElementsByClassName("autocomplete-items")).forEach(item => {
+            if (elmnt !== item && elmnt !== inp) item.parentNode.removeChild(item);
+        });
+    }
+
+    document.addEventListener("click", function(e) {
+        closeAllLists(e.target);
+    });
+}
+
 async function loadStations() {
     try {
         const response = await fetch("/api/stations");
-        const stations = await response.json();
+        stations = await response.json();
         stations.sort((a, b) => a.name.localeCompare(b.name));
-        stationSelect.innerHTML = '<option value="">Select Station</option>';
-        stations.forEach(station => {
-            const option = document.createElement("option");
-            option.value = station.code;
-            option.textContent = station.name;
-            stationSelect.appendChild(option);
-        });
+        autocomplete(stationInput, stations);
     } catch (error) {
         errorMsg.textContent = "Failed to load stations.";
     }
 }
-// Search stations and display results in table
+
 async function searchTrains() {
-    const code = stationSelect.value;
+    const code = selectedCode;
     errorMsg.textContent = "";
     tableBody.innerHTML = "";
     resultsCon.style.display = "none";
+
     if (!code) {
         errorMsg.textContent = "Please select a station.";
         return;
     }
-    // Fetch train data for selected station
+
     try {
         const response = await fetch(`/api/station/${code}`);
         const trains = await response.json();
@@ -57,5 +126,6 @@ async function searchTrains() {
         errorMsg.textContent = "Error loading train data.";
     }
 }
+
 searchBtn.addEventListener("click", searchTrains);
 loadStations();

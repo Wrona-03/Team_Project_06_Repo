@@ -1,3 +1,5 @@
+const dns = require("dns");
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri =
   `mongodb+srv://wiktoriasocha236_db_user:${process.env.db_key}@easyfaredatabase.trjnuqe.mongodb.net/?appName=EasyFareDatabase`;
