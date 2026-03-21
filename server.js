@@ -56,6 +56,16 @@ app.get("/api/stations", (req, res) => {
   res.json(stations);
 });
 
+// Get stop names from MongoDB for fare calculator autocomplete
+app.get("/api/fare-stops", async (req, res) => {
+  try {
+    const stops = await db.collection("Stops").find({}, { projection: { name: 1, _id: 0 } }).toArray();
+    res.json(stops.map(s => s.name).sort());
+  } catch (err) {
+    res.status(500).json({ error: "Could not fetch stops" });
+  }
+});
+
 // Taking user selection of station and displaying live train data from Irish Rail API
 app.get("/api/station/:code", async (req, res) => {
   const stationCode = req.params.code.toUpperCase();

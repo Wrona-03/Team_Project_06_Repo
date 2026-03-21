@@ -1,7 +1,10 @@
+/* Landing Page */
+
 body {
   background-color: #f5f7fa;
 }
 
+/* Hero Banner */
 .train-banner {
   height: 220px;
   background: linear-gradient(135deg, #04b976, #037f51);
@@ -12,18 +15,20 @@ body {
   letter-spacing: 1px;
 }
 
+/* Content Sections */
 .content-box {
   background: #ffffff;
   padding: 2rem;
   border-radius: 16px;
-  box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
 }
 
 .content-image {
   border-radius: 16px;
-  box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
 }
 
+/* CTA Button */
 .train-cta {
   width: 100%;
   padding: 2.2rem 1rem;
@@ -41,12 +46,13 @@ body {
   transform: scale(1.01);
 }
 
-@keyframes trainAni {
+@keyframes trainGlow {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
 
+/* Chatbot Toggle */
 #chatbot-toggle {
   position: fixed;
   right: 35px;
@@ -85,6 +91,7 @@ body.show-chatbot #chatbot-toggle span:last-child {
   opacity: 1;
 }
 
+/* Chatbot Popup */
 .ai-popup {
   position: fixed;
   bottom: 95px;
@@ -99,7 +106,7 @@ body.show-chatbot #chatbot-toggle span:last-child {
   transform-origin: bottom right;
   transition: all 0.2s ease;
   width: 450px;
-  box-shadow: 0 0 120px 0 rgba(0,0,0,0.1), 0 20px 50px -40px rgba(0,0,0,1);
+  box-shadow: 0 0 120px 0 rgba(0, 0, 0, 0.1), 0 20px 50px -40px rgba(0, 0, 0, 1);
   display: flex;
   flex-direction: column;
 }
@@ -184,7 +191,7 @@ body.show-chatbot .ai-popup {
   padding: 10px 15px;
   border-radius: 14px;
   border-bottom-left-radius: 3px;
-  font-size: .9rem;
+  font-size: 0.9rem;
   line-height: 1.5;
   max-width: 300px;
 }
@@ -200,7 +207,7 @@ body.show-chatbot .ai-popup {
   padding: 10px 14px;
   border-radius: 14px;
   border-bottom-right-radius: 3px;
-  font-size: .9rem;
+  font-size: 0.9rem;
   line-height: 1.5;
   max-width: 300px;
 }
@@ -209,7 +216,6 @@ body.show-chatbot .ai-popup {
   border-top: 1px solid #f0f0f0;
   padding: 10px;
   background: #fff;
-  margin-top: 0;
 }
 
 .chat-form {
@@ -224,7 +230,7 @@ body.show-chatbot .ai-popup {
   border: 1.5px solid #e8e7ff;
   border-radius: 10px;
   padding: 10px 13px;
-  font-size: .875rem;
+  font-size: 0.875rem;
   outline: none;
   line-height: 1.45;
   min-height: 64px;
@@ -246,7 +252,7 @@ body.show-chatbot .ai-popup {
   border: none;
   background: #5350C4;
   color: #fff;
-  font-size: .85rem;
+  font-size: 0.85rem;
   font-weight: 600;
   padding: 8px 18px;
   border-radius: 8px;
@@ -259,7 +265,7 @@ body.show-chatbot .ai-popup {
 
 .online-status {
   font-size: 0.75rem;
-  color: rgba(255,255,255,0.8);
+  color: rgba(255, 255, 255, 0.8);
   display: block;
   margin-top: 2px;
 }
@@ -305,8 +311,7 @@ body.show-chatbot .ai-popup {
   padding-block: 14px;
 }
 
-/* Media Queries */
-
+/* Mobile */
 @media (max-width: 600px) {
   .train-banner {
     height: 140px;
