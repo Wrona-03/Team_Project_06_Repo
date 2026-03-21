@@ -1,226 +1,105 @@
-/* Page text */
+/* Fare Calculator */
 
-.fare_heading {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  text-align: center;
+/* Page Wrapper */
+.fare-wrapper {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
+/* Inputs and select full width */
+.station-select input[type=text],
+.station-select select {
+  flex: 1;
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+/* Descriptive text */
 .user_guide {
-  font-size: 16px;
-  line-height: 1.5;
-  margin-bottom: 20px;
-  text-align: center;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 6px;
 }
 
 .stop_note {
-  font-size: 14px;
+  font-size: 13px;
   font-style: italic;
-  text-align: center;
-}
-
-/* Main page CSS */
-
-.main_content {
-  display: flex;
-  max-width: 1200px;
-  margin: 40px auto;
-}
-
-.fare_calc,
-.map_container {
-  flex: 1; /* take half the width each */
-  display: flex; /* make children flex containers */
-  flex-direction: column; /* stack children vertically */
-  align-items: center; /* horizontal centering */
-  justify-content: flex-start; /* vertical alignment at top */
-  margin: 10px; /* spacing between sides */
-}
-
-/* Position calculator in the middle of it's div */
-.fare_calc {
-  justify-content: center;
-}
-
-#fare_table {
-  margin-top: 15px;
-}
-
-/* Table container */
-#fare_table {
-  border: 1px solid #111;
-  border-collapse: collapse;
-  width: 100%;
-  text-align: center;
-  margin-top: 20px;
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
-}
-
-/* Header cells */
-#fare_table th {
-  padding: 10px;
-  border: 1px solid #111;
-  background-color: #333;
-  color: #fff;
-  font-weight: bold;
-}
-
-/* Data cells */
-#fare_table td {
-  padding: 10px;
-  border: 1px solid #111;
-}
-
-/* Highlight null/unavailable caps */
-#fare_table td:empty::after,
-td:contains("—") {
-  content: "—";
   color: #888;
-  font-style: italic;
+  margin-bottom: 15px;
 }
 
-/* Calculator card */
-.calc_card {
-  width: 350px;
-  padding: 25px;
-  background-color: #9ec1cf;
+/* Map */
+.map_container {
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 10px;
+}
+
+.fare_map {
+  max-width: 460px;
+  width: 100%;
+  height: auto;
   border-radius: 8px;
 }
 
-/* Center map in right half */
-.map_container {
-  justify-content: center;
-}
-
-.map_container img {
-  max-width: 80%;
-  height: auto;
-}
-
-/* FAQ CSS */
-
+/* FAQ */
 .faq_section {
   width: 85%;
-  margin: 60px auto;
+  margin: 40px auto;
 }
 
 .faq_section h2 {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
+  color: #1e7f4f;
+  font-size: 20px;
+  font-weight: 600;
 }
 
 .faq_section details {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   background: #f4f4f4;
-  padding: 10px;
+  padding: 10px 14px;
   border-radius: 6px;
+  font-size: 14px;
 }
 
-/* Nav Bar CSS */
-.navbar > ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333333;
-}
-
-.navbar > ul > li {
-  float: left;
-}
-
-.navbar > ul > li > a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-.navbar > ul > li > a:hover {
-  background-color: #111111;
-}
-
-.burger {
-  display: none;
-  background: none;
-  border: none;
-  color: white;
-  font-size: 22px;
-  padding: 12px 16px;
+.faq_section details summary {
   cursor: pointer;
-  width: 100%;
-  text-align: left;
+  font-weight: 500;
 }
 
-.burger:hover {
-  background-color: #444444;
+.faq_section details p {
+  margin-top: 8px;
+  color: #444;
 }
 
-/* Table CSS */
-
-#fare_table {
-  border: 1px solid #111;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-#fare_table th,
-td {
-  padding: 10px;
-  border: 1px solid #111;
-}
-
-
-/* Media Queries */
+/* Mobile */
 @media (max-width: 600px) {
-  .navbar {
-    background-color: #333333;
-  }
-
-  .burger {
-    display: block;
-  }
-
-  .navbar > ul {
-    display: none;
-    overflow: hidden;
-  }
-
-  .navbar.open > ul {
-    display: block;
-  }
-
-  .navbar > ul > li {
-    float: none;
-    display: block;
-  }
-
-  .main_content {
+  .fare-wrapper {
     flex-direction: column;
-    margin: 20px auto;
-  }
-
-  .calc_card {
-    width: 100%;
     padding: 15px;
   }
 
-  .map_container img {
+  .map_container {
+    width: 100%;
+  }
+
+  .fare_map {
     max-width: 100%;
   }
 
   .faq_section {
     width: 95%;
-    margin: 30px auto;
-  }
-
-  #fare_table {
-    font-size: 12px;
-  }
-
-  #fare_table th, #fare_table td {
-    padding: 6px;
+    margin: 25px auto;
   }
 }

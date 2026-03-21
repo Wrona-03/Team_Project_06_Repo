@@ -1,181 +1,305 @@
-/* Container Component */
-.train-con {
-    width: 650px;
-    max-width: 650px;
-    padding: 25px;
-    border-radius: 12px;
-    background: #ffffff;
-    /* box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); */
-    font-family: Arial, sans-serif;
+/* Main Stylesheet */
+
+/* Base */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
-/* Title */
-.train-title, #stops-title {
-    margin-bottom: 20px;
-    color: #1e7f4f;
-    font-size: 20px;
-    font-weight: 600;
+body {
+  margin: 0;
+  padding-top: 48px;
+  overflow-x: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
 }
 
-/* Controls */
-.station-select {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: #2c2c2c;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
 }
 
-.autocomplete {
-    position: relative;
-    flex: 1;
+.nav-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-.autocomplete input[type=text] {
-    width: 100%;
-    padding: 8px 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-size: 14px;
-    box-sizing: border-box;
+.nav-list li {
+  display: flex;
+  align-items: center;
 }
 
-.autocomplete-items {
-    position: absolute;
-    border: 1px solid #d4d4d4;
-    border-bottom: none;
-    border-top: none;
-    z-index: 99;
-    top: 100%;
-    left: 0;
-    right: 0;
+.nav-list li:not(:last-child)::after {
+  content: '|';
+  color: rgba(255, 255, 255, 0.35);
+  pointer-events: none;
 }
 
-.autocomplete-items div {
-    padding: 10px;
-    cursor: pointer;
-    background-color: #fff;
-    border-bottom: 1px solid #d4d4d4;
+.nav-list li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 0.95rem;
 }
 
-.autocomplete-items div:hover {
-    background-color: #e9e9e9;
+.nav-list li a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
 }
 
-.autocomplete-active {
-    background-color: DodgerBlue !important;
-    color: #ffffff;
-}
-
-button {
-    padding: 8px 14px;
-    border-radius: 6px;
-    border: none;
-    background-color: #1e7f4f;
-    color: white;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background 0.2s ease;
-}
-
-button:hover {
-    background-color: #16633c;
+.burger {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 22px;
+  padding: 12px 16px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
 }
 
 .burger:hover {
-    background-color: #444444;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Container */
+.train-con {
+  width: 650px;
+  max-width: 650px;
+  padding: 25px;
+  border-radius: 12px;
+  background: #ffffff;
+  margin: 25px auto;
+}
+
+/* Title */
+.train-title,
+#stops-title {
+  margin-bottom: 20px;
+  color: #1e7f4f;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* Search Controls */
+.station-select {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.autocomplete {
+  position: relative;
+  flex: 1;
+}
+
+.autocomplete input[type=text] {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+.autocomplete-items div:hover {
+  background-color: #e9e9e9;
+}
+
+.autocomplete-active {
+  background-color: DodgerBlue !important;
+  color: #ffffff;
+}
+
+/* Buttons */
+button {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  background-color: #1e7f4f;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: inherit;
+  transition: background 0.2s ease;
+}
+
+button:hover {
+  background-color: #16633c;
+}
+
+#all-bikes-btn {
+  background-color: rgb(69, 69, 218);
+}
+
+#all-bikes-btn:hover {
+  background-color: rgb(50, 50, 180);
 }
 
 /* Error */
 .error-message {
-    color: #c0392b;
-    font-size: 13px;
-    margin-bottom: 10px;
+  color: #c0392b;
+  font-size: 13px;
+  margin-bottom: 10px;
 }
 
-/* Table */
+/* Results Table */
 .table-con {
-    overflow-x: auto;
+  overflow-x: auto;
 }
 
 .results-con {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-    display: none;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  display: none;
 }
 
 .results-con th {
-    background-color: #1e7f4f;
-    color: white;
-    padding: 8px;
-    text-align: center;
+  background-color: #1e7f4f;
+  color: white;
+  padding: 8px;
+  text-align: center;
 }
 
 .results-con td {
-    padding: 8px;
-    text-align: center;
-    border-bottom: 1px solid #eaeaea;
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid #eaeaea;
 }
 
 .results-con tr:hover {
-    background-color: #f2f9f5;
+  background-color: #f2f9f5;
 }
 
-/* Stops section */
-
-
+/* Stops Panel */
 .table-stops-wrapper {
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
+
+.table-stops-wrapper .train-con {
+  margin: 0;
+}
+
 #stops-container {
-    min-width: 200px;
-    padding: 25px;
-}
-#stops-list > ul{
-    background-color: none;
+  display: none;
+  min-width: 200px;
+  padding: 25px;
 }
 
-/* Bikes section*/
-#all-bikes-btn {
-    background-color: rgb(69, 69, 218);
-}
-
-/* Media Queries */
+/* Mobile */
 @media (max-width: 600px) {
-    .train-con {
-        width: 100%;
-        padding: 15px;
-        border-radius: 0;
-        box-shadow: none;
-    }
+  .navbar {
+    align-items: flex-start;
+  }
 
-    .station-select {
-        flex-wrap: wrap;
-    }
+  .burger {
+    display: block;
+  }
 
-    .station-select .autocomplete {
-        flex-basis: 100%;
-    }
+  .nav-list {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch;
+    flex-wrap: nowrap;
+  }
 
-    .station-select button {
-        flex: 1;
-    }
+  .navbar.open .nav-list {
+    display: flex;
+  }
 
-    .table-stops-wrapper {
-        flex-direction: column;
-    }
+  .nav-list li {
+    display: block;
+  }
 
-    #stops-container {
-        min-width: unset;
-        padding: 15px;
-    }
+  .nav-list li::after {
+    display: none;
+  }
 
-    .results-con {
-        font-size: 11px;
-    }
+  .nav-list li a {
+    padding: 11px 20px;
+    font-size: 0.88rem;
+    white-space: normal;
+    word-break: break-word;
+  }
 
-    .results-con th, .results-con td {
-        padding: 5px;
-    }
+  .train-con {
+    width: 100%;
+    padding: 15px;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0;
+  }
+
+  .table-stops-wrapper {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .station-select {
+    flex-wrap: wrap;
+  }
+
+  .station-select .autocomplete {
+    flex-basis: 100%;
+  }
+
+  .station-select button {
+    flex: 1;
+  }
+
+  #stops-container {
+    min-width: unset;
+    padding: 15px;
+  }
+
+  .results-con {
+    font-size: 11px;
+  }
+
+  .results-con th,
+  .results-con td {
+    padding: 5px;
+  }
 }
