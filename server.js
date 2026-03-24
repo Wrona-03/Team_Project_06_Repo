@@ -28,29 +28,6 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public/index.html"));
 });
 
-/* app.use(cors());
-app.use(express.static(path.join(__dirname, "public")));
-app.get("/", (_req, res) => res.sendFile(path.join(__dirname, "index.html")));
-app.get("/index.html", (_req, res) =>
-  res.sendFile(path.join(__dirname, "index.html")),
-);
-app.get("/styles.css", (_req, res) =>
-  res.sendFile(path.join(__dirname, "styles.css")),
-);
-app.get("/app.js", (_req, res) => res.sendFile(path.join(__dirname, "app.js"))); */
-
-// Unneeded duplicate - doesn't break anything but could cause issues
-/* app.use(cors());
-app.use(express.static(path.join(__dirname, "public")));
-app.get("/", (_req, res) => res.sendFile(path.join(__dirname, "index.html")));
-app.get("/index.html", (_req, res) =>
-  res.sendFile(path.join(__dirname, "index.html")),
-);
-app.get("/styles.css", (_req, res) =>
-  res.sendFile(path.join(__dirname, "styles.css")),
-);
-app.get("/app.js", (_req, res) => res.sendFile(path.join(__dirname, "app.js"))); */
-
 // Get list of stations
 app.get("/api/stations", (req, res) => {
   res.json(stations);
@@ -223,8 +200,8 @@ app.post("/calculate-fare", async (req, res) => {
       singleFare: card[`Zone ${finalZone} fare`],
       weeklyFare: card[`Zone ${finalZone} weekly`],
       monthlyFare: card[`Zone ${finalZone} monthly`],
-      dailyCap: card["Daily Cap"], // <- add this
-      weeklyCap: card["Weekly Cap"], // <- add this
+      dailyCap: card["Daily Cap"], 
+      weeklyCap: card["Weekly Cap"], 
     });
   } catch (err) {
     console.error("Error calculating fare:", err);
