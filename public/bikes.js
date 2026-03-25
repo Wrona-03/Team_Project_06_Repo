@@ -5,15 +5,20 @@ const errorMsg = document.getElementById("error-msg");
 const bikesTable = document.getElementById("bikes-table");
 const tableBody = document.getElementById("table-body");
 
-let selectedStop = "";
+const bikeStandInput = document.getElementById("bike-stand-input");
+const bikeStandBtn = document.getElementById("bike-stand-btn");
 
-function autocomplete(inp, stopsArr) {
+
+let selectedStop = "";
+let selectedStand = "";
+
+function autocomplete(inp, stopsArr, onSelect) {
     let currentFocus;
 
     inp.addEventListener("input", function() {
         closeAllLists();
         const val = this.value;
-        selectedStop = "";
+        // selectedStop = "";
         if (!val) return;
         currentFocus = -1;
 
@@ -31,7 +36,7 @@ function autocomplete(inp, stopsArr) {
                     + stop.substring(i + val.length);
                 item.addEventListener("click", function() {
                     inp.value = stop;
-                    selectedStop = stop;
+                    onSelect(stop);
                     closeAllLists();
                 });
                 itemsDiv.appendChild(item);
@@ -77,6 +82,8 @@ function autocomplete(inp, stopsArr) {
     });
 }
 
+
+
 async function loadStops() {
     try {
         const response = await fetch("/api/stops");
@@ -85,7 +92,7 @@ async function loadStops() {
             .filter(stop => stop.zone_Number === 1 && stop.modeID.includes(1))
             .map(stop => stop.name)
             .sort();
-        autocomplete(stopsInput, zone1Stops);
+autocomplete(stopsInput, zone1Stops, (val) => selectedStop = val);
     } catch (error) {
         console.log(error);
     }
@@ -97,14 +104,21 @@ async function searchBikes() {
     tableBody.innerHTML = "";
 
     if (!selectedStop) {
+        selectedStop = stopsInput.value.trim();
+    }
+
+    if (!selectedStop) {
         errorMsg.textContent = "Please select a stop.";
         return;
     }
+
 
     try {
         const response = await fetch("/api/stationLocations");
         const allStations = await response.json();
         const station = allStations.find(s => s.name === selectedStop);
+        console.log("selected:", selectedStop);
+        console.log("found:", station);
 
         if (!station) {
             errorMsg.textContent = "Station not found.";
@@ -163,6 +177,59 @@ async function getAllBikes() {
     }
 }
 
+
+async function searchBikeStand() {
+    errorMsg.textContent = "";
+    bikesTable.style.display = "none";
+    tableBody.innerHTML = "";
+
+    //fallback if user does not click autocomplete options
+    if (!selectedStand) {
+        selectedStand = bikeStandInput.value.trim().toUpperCase();
+    }
+
+    if (!selectedStand) {
+        errorMsg.textContent = "Please select a bike stand.";
+        return;
+    }
+
+    try {
+        const response = await fetch("/api/bikes");
+        const bikes = await response.json();
+        const results = bikes.filter(bike => bike.name === selectedStand);
+
+         if (results.length === 0) {
+            errorMsg.textContent = "Bike stand not found.";
+            return;
+        }
+        bikesTable.style.display = "table";
+        results.forEach(bike => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${bike.name}</td>
+                <td>${bike.available_bikes}</td>
+                <td>${bike.available_bike_stands}</td>
+                <td>-</td>`;
+            tableBody.appendChild(row);
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function loadBikeStands() {
+    try {
+        const response = await fetch("/api/bikes");
+        const bikes = await response.json();
+        const bikeNames = bikes.map(bike => bike.name).sort();
+        autocomplete(bikeStandInput, bikeNames, (val) => selectedStand = val);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 bikesBtn.addEventListener("click", searchBikes);
 allBikesBtn.addEventListener("click", getAllBikes);
+bikeStandBtn.addEventListener("click", searchBikeStand);
 loadStops();
+loadBikeStands();
