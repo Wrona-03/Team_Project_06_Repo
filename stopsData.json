@@ -31,7 +31,7 @@
   },
   {
     "_id": 106,
-    "name": "Bray (Daly)",
+    "name": "Bray",
     "zone_Number": 1,
     "modeID": [1]
   },
@@ -49,13 +49,13 @@
   },
   {
     "_id": 109,
-    "name": "Clondalkin Fonthill",
+    "name": "Clondalkin",
     "zone_Number": 1,
     "modeID": [1]
   },
   {
     "_id": 110,
-    "name": "Clongriffen",
+    "name": "Clongriffin",
     "zone_Number": 1,
     "modeID": [1]
   },
@@ -127,7 +127,7 @@
   },
   {
     "_id": 122,
-    "name": "Dun Laoghaire (Mallin)",
+    "name": "Dun Laoghaire",
     "zone_Number": 1,
     "modeID": [1, 2]
   },
@@ -175,13 +175,13 @@
   },
   {
     "_id": 130,
-    "name": "Hazelhatch and Celbridge",
+    "name": "Hazelhatch",
     "zone_Number": 1,
     "modeID": [1]
   },
   {
     "_id": 131,
-    "name": "Howth Junction and Donaghmede",
+    "name": "Howth Junction",
     "zone_Number": 1,
     "modeID": [1]
   },
@@ -235,13 +235,13 @@
   },
   {
     "_id": 140,
-    "name": "Leixlip Confey",
+    "name": "Leixlip (Confey)",
     "zone_Number": 1,
     "modeID": [1]
   },
   {
     "_id": 141,
-    "name": "Leixlip Louisa Bridge",
+    "name": "Leixlip (Louisa Bridge)",
     "zone_Number": 1,
     "modeID": [1]
   },
@@ -319,7 +319,7 @@
   },
   {
     "_id": 154,
-    "name": "Sandycove and Glasthule",
+    "name": "Sandycove",
     "zone_Number": 1,
     "modeID": [1]
   },
