@@ -5,12 +5,12 @@ const errorMsg = document.getElementById("error-msg");
 const bikesTable = document.getElementById("bikes-table");
 const tableBody = document.getElementById("table-body");
 
-const bikeStandInput = document.getElementById("bike-stand-input");
-const bikeStandBtn = document.getElementById("bike-stand-btn");
+const bikeStationInput = document.getElementById("bike-station-input");
+const bikeStationBtn = document.getElementById("bike-station-btn");
 
 
 let selectedStop = "";
-let selectedStand = "";
+let selectedStation = "";
 
 function autocomplete(inp, stopsArr, onSelect) {
     let currentFocus;
@@ -178,28 +178,28 @@ async function getAllBikes() {
 }
 
 
-async function searchBikeStand() {
+async function searchBikeStation() {
     errorMsg.textContent = "";
     bikesTable.style.display = "none";
     tableBody.innerHTML = "";
 
     //fallback if user does not click autocomplete options
-    if (!selectedStand) {
-        selectedStand = bikeStandInput.value.trim().toUpperCase();
+    if (!selectedStation) {
+        selectedStation = bikeStationInput.value.trim().toUpperCase();
     }
 
-    if (!selectedStand) {
-        errorMsg.textContent = "Please select a bike stand.";
+    if (!selectedStation) {
+        errorMsg.textContent = "Please select a bike station.";
         return;
     }
 
     try {
         const response = await fetch("/api/bikes");
         const bikes = await response.json();
-        const results = bikes.filter(bike => bike.name === selectedStand);
+        const results = bikes.filter(bike => bike.name === selectedStation);
 
          if (results.length === 0) {
-            errorMsg.textContent = "Bike stand not found.";
+            errorMsg.textContent = "Bike station not found.";
             return;
         }
         bikesTable.style.display = "table";
@@ -217,12 +217,12 @@ async function searchBikeStand() {
     }
 }
 
-async function loadBikeStands() {
+async function loadBikeStations() {
     try {
         const response = await fetch("/api/bikes");
         const bikes = await response.json();
         const bikeNames = bikes.map(bike => bike.name).sort();
-        autocomplete(bikeStandInput, bikeNames, (val) => selectedStand = val);
+        autocomplete(bikeStationInput, bikeNames, (val) => selectedStation = val);
     } catch (error) {
         console.log(error);
     }
@@ -230,6 +230,6 @@ async function loadBikeStands() {
 
 bikesBtn.addEventListener("click", searchBikes);
 allBikesBtn.addEventListener("click", getAllBikes);
-bikeStandBtn.addEventListener("click", searchBikeStand);
+bikeStationBtn.addEventListener("click", searchBikeStation);
 loadStops();
-loadBikeStands();
+loadBikeStations();
