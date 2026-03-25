@@ -113,9 +113,26 @@ app.get("/api/station/:code", async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 //Get bikes routes
 app.use("/", bikesRouter);
 //Get stops routes
+=======
+app.post("/api/chat", async (req, res) => {
+  const response = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(req.body)
+    }
+  );
+  const data = await response.json();
+  res.json(data);
+});
+
+app.use("/", bikesRouter);
+>>>>>>> 3ab82c43a2dd21a4a7c9fafc7ca473b15bf5ccbc
 app.use("/", stopsRouter);
 
 //DB section
