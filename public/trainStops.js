@@ -20,6 +20,7 @@ async function viewStops(trainID, stationCode) {
     const lastLocation = currentTrain?.lastLocation || "";
 
 
+    document.getElementById("stops-container").style.display = "block";
     stopsList.textContent = "";
     //Append each ride stop as list item
     stops.forEach((stop) => {
