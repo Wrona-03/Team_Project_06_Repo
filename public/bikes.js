@@ -82,8 +82,6 @@ function autocomplete(inp, stopsArr, onSelect) {
     });
 }
 
-
-
 async function loadStops() {
     try {
         const response = await fetch("/api/stops");
@@ -99,35 +97,36 @@ autocomplete(stopsInput, zone1Stops, (val) => selectedStop = val);
 }
 
 async function searchBikes() {
+    //clear error message and table
     errorMsg.textContent = "";
     bikesTable.style.display = "none";
     tableBody.innerHTML = "";
 
+    //fallback if user does not click autocomplete options
     if (!selectedStop) {
         selectedStop = stopsInput.value.trim();
     }
-
+    //if user enters no input
     if (!selectedStop) {
         errorMsg.textContent = "Please select a stop.";
         return;
     }
-
-
     try {
+        //fetch station names and coordinates from irish rail api
         const response = await fetch("/api/stationLocations");
         const allStations = await response.json();
+        //find input in station names
         const station = allStations.find(s => s.name === selectedStop);
-        console.log("selected:", selectedStop);
-        console.log("found:", station);
+        // console.log("selected:", selectedStop);
+        // console.log("found:", station);
 
         if (!station) {
             errorMsg.textContent = "Station not found.";
             return;
         }
-
+        //fetch nearby bikes endpoint that filters the nearest bikes, pass in station coordinates
         const coordinates = await fetch(`/api/bikes/nearby?lat=${station.latitude}&lng=${station.longitude}`);
         const bikeStations = await coordinates.json();
-
         if (bikeStations.length === 0) {
             errorMsg.textContent = "No bikes nearby.";
             return;
@@ -233,3 +232,5 @@ allBikesBtn.addEventListener("click", getAllBikes);
 bikeStationBtn.addEventListener("click", searchBikeStation);
 loadStops();
 loadBikeStations();
+
+module.exports = bikes;
