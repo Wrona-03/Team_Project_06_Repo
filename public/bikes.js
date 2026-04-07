@@ -7,7 +7,8 @@ const tableBody = document.getElementById("table-body");
 
 const bikeStationInput = document.getElementById("bike-station-input");
 const bikeStationBtn = document.getElementById("bike-station-btn");
-
+const favStationBtn = document.getElementById("fav-station-btn");
+const favStationDiv = document.getElementById("fav-station-div")
 
 let selectedStop = "";
 let selectedStation = "";
@@ -227,10 +228,66 @@ async function loadBikeStations() {
     }
 }
 
+function saveFavouriteStation(){
+    console.log("selectedStation:", selectedStation);
+    if(!selectedStation){
+        errorMsg.textContent = "Please select a bike station first.";
+        return;
+    }
+    let favs = JSON.parse(localStorage.getItem('favBikeStations')) || [];
+    if(favs.length >= 5){
+        errorMsg.textContent = "Maximum 5 saved stations reached.";
+        return;
+    }
+
+    favs.push({ name: selectedStation });
+    localStorage.setItem('favBikeStations', JSON.stringify(favs));
+    favStationBtn.textContent = "Saved!";
+    loadFavouriteStation();
+
+}
+
+function loadFavouriteStation(){
+    let favs = JSON.parse(localStorage.getItem('favBikeStations')) || [];
+    favStationBtn.textContent = "Save Station";
+    if(favs.length === 0){
+        favStationDiv.style.display = "none";
+        return;
+    }
+
+    favStationDiv.style.display = "block";
+    favStationDiv.innerHTML = "<p>Saved bike stations:</p>";
+
+    favs.forEach((fav, index) => {
+        const btn = document.createElement("button");
+        btn.textContent = fav.name;
+        btn.classList.add("fav-station-btn");
+        btn.addEventListener("click", () => {
+            bikeStationInput.value = fav.name;
+            selectedStation = fav.name;
+            searchBikeStation();
+        });
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "✕";
+        deleteBtn.classList.add("fav-delete-btn");
+        deleteBtn.addEventListener("click", () => {
+            favs.splice(index, 1);
+            localStorage.setItem('favBikeStations', JSON.stringify(favs));
+            loadFavouriteStation();
+        });
+        favStationDiv.appendChild(btn);
+        favStationDiv.appendChild(deleteBtn);
+
+    });
+
+}
+
+
 bikesBtn.addEventListener("click", searchBikes);
 allBikesBtn.addEventListener("click", getAllBikes);
 bikeStationBtn.addEventListener("click", searchBikeStation);
 loadStops();
 loadBikeStations();
+favStationBtn.addEventListener("click", saveFavouriteStation);
+loadFavouriteStation();
 
-module.exports = bikes;
