@@ -303,3 +303,30 @@ button:hover {
     padding: 5px;
   }
 }
+/* Save feature buttons */
+.fav-station-btn {
+    background-color: #F5F5DC;
+    color: #333;
+    border: 1px solid #ccc;
+    margin-right: 4px;
+    margin-bottom: 6px;
+}
+
+.fav-station-btn:hover {
+    background-color: #c6c6b9;
+   
+}
+
+.fav-delete-btn {
+    background-color: transparent;
+    color: #999;
+    border: none;
+    font-size: 12px;
+    padding: 4px 6px;
+    margin-right: 8px;
+}
+
+.fav-delete-btn:hover {
+    color: #c0392b;
+    background-color: transparent;
+}

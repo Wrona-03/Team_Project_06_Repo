@@ -1,6 +1,5 @@
 require("dotenv").config();
 
-console.log(process.env.MONGO_URI);
 
 const express = require("express"); //  Express for server
 const xml2js = require("xml2js"); // Parsing XML from Irish Rail API

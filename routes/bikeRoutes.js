@@ -1,7 +1,7 @@
 const express = require('express');
 /* 
 library for calculating distance
-https://github.com/manuelbieh/geolib?utm_source=chatgpt.com 
+https://github.com/manuelbieh/geolib
 */
 const geolib = require('geolib'); 
 
