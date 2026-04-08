@@ -31,6 +31,7 @@ async function viewStops(trainID, stationCode) {
         stopsList.appendChild(listItem);
           if(lastLocation.includes(stop.location)){
             listItem.style.fontWeight = "bold";
+            listItem.textContent += "🚆";
           }
       }
     });
