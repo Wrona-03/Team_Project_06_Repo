@@ -154,7 +154,7 @@ function loadFavorite(){
     }
     favBtn.textContent = "Save Station";
     favDiv.style.display = "block";
-    favDiv.innerHTML = "<p>Saved stations:</p>";
+    favDiv.innerHTML = "<p class='user_guide'>Saved stations:</p>";
 
     favs.forEach((fav, index) => {
         const btn = document.createElement("button");
