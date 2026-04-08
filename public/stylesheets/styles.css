@@ -100,7 +100,7 @@ body {
 .user_guide {
   font-size: 14px;
   color: #555;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 /* Search Controls */
@@ -108,6 +108,7 @@ body {
   display: flex;
   gap: 10px;
   margin-bottom: 15px;
+  margin-top: 20px;
 }
 
 .autocomplete {
@@ -169,16 +170,16 @@ button:hover {
 }
 
 #all-bikes-btn {
-  background-color: rgb(69, 69, 218);
+  background-color: #2f1e7f;
 }
 
 #all-bikes-btn:hover {
-  background-color: rgb(50, 50, 180);
+  background-color: #1e1e68;
 }
 
 #view-stops-btn {
   font-size: 11px;
-  font-weight: bold;
+  font-weight: 600;
 }
 
 /* Error */
@@ -316,15 +317,18 @@ button:hover {
 }
 /* Save feature buttons */
 .fav-station-btn {
-    background-color: #F5F5DC;
-    color: #333;
-    border: 1px solid #ccc;
+    background-color: transparent;
+    color: #1e7f4f;
+    border: 1.5px solid #1e7f4f;
     margin-right: 4px;
     margin-bottom: 6px;
+    transition: background 0.2s ease;
+    font-weight: 600;
 }
 
 .fav-station-btn:hover {
-    background-color: #c6c6b9;
+    background-color: #3c8c5f;
+    color: white;
    
 }
 
