@@ -256,7 +256,7 @@ function loadFavouriteStation(){
     }
 
     favStationDiv.style.display = "block";
-    favStationDiv.innerHTML = "<p>Saved bike stations:</p>";
+    favStationDiv.innerHTML = "<p class='user_guide'>Saved bike stations:</p>";
 
     favs.forEach((fav, index) => {
         const btn = document.createElement("button");
