@@ -18,7 +18,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 1100;
   background: #2c2c2c;
   display: flex;
   flex-direction: column;
