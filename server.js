@@ -1,18 +1,15 @@
 require("dotenv").config();
 
-
 const express = require("express"); //  Express for server
 const cors = require("cors"); // Allows requests from frontend
 const path = require("path");
 const { connectToDatabase, getDB } = require("./db/ConnectionDB");
-
 
 //Routes
 const bikesRouter = require("./routes/bikeRoutes");
 const stopsRouter = require("./routes/stopsRoutes");
 const trainRouter = require("./routes/trainRoutes");
 const fareRouter = require("./routes/fareRoutes");
-
 
 // Create Express app
 const app = express();
@@ -36,18 +33,16 @@ app.use("/", fareRouter);
 //AI chatbot
 app.post("/api/chat", async (req, res) => {
   const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(req.body)
-    }
+      body: JSON.stringify(req.body),
+    },
   );
   const data = await response.json();
   res.json(data);
 });
-
-
 
 //DB section
 let db;
