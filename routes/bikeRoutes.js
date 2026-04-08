@@ -1,7 +1,7 @@
 const express = require('express');
 /* 
 library for calculating distance
-https://github.com/manuelbieh/geolib?utm_source=chatgpt.com 
+https://github.com/manuelbieh/geolib
 */
 const geolib = require('geolib'); 
 
@@ -61,7 +61,6 @@ bikeRoutes.get("/api/bikes", async (req, res)=>{
     
         const data = await response.json();
         res.json(data)
-        console.log(data)
 
     }
     catch(error){
@@ -82,7 +81,7 @@ bikeRoutes.get("/api/bikes/nearby", async (req, res) => {
     bikes.forEach(bike => {
         //use getDistance function from geolib to get distance between coordiantes
         const distance = geolib.getDistance({ latitude: lat, longitude: lng },
-    { latitude: bike.position.lat, longitude: bike.position.lng });
+                        { latitude: bike.position.lat, longitude: bike.position.lng });
         if (distance < 500) {
             nearby.push({
                 name: bike.name,
@@ -95,7 +94,8 @@ bikeRoutes.get("/api/bikes/nearby", async (req, res) => {
     //sort by distance descending
     nearby.sort((a, b) => a.distance - b.distance);
     res.json(nearby);
+    
 });
 
-//export so this can be used 
+//export
 module.exports = bikeRoutes;

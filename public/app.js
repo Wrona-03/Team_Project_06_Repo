@@ -3,7 +3,8 @@ const searchBtn = document.getElementById("searchBtn");
 const errorMsg = document.getElementById("errorMsg");
 const resultsCon = document.getElementById("resultsCon");
 const tableBody = resultsCon.querySelector("tbody");
-
+const favBtn = document.getElementById("fav-btn");
+const favDiv = document.getElementById("fav-div");
 let stations = [];
 let selectedCode = "";
 
@@ -127,5 +128,59 @@ async function searchTrains() {
     }
 }
 
+//bookmark station functions
+function saveFavorite(){
+    if(!selectedCode || !stationInput.value){
+        errorMsg.textContent = "Please select a station first."
+        return;
+    }
+    
+    const fav = {name: stationInput.value, code: selectedCode};
+    let favs = JSON.parse(localStorage.getItem('favStations')) || [];
+    if (favs.length >= 5) {
+    errorMsg.textContent = "Maximum 5 saved stations reached.";
+    return;
+}
+    favs.push(fav);
+    localStorage.setItem('favStations', JSON.stringify(favs));
+    loadFavorite();
+}
+
+function loadFavorite(){
+    let favs = JSON.parse(localStorage.getItem('favStations')) || [];
+    if (favs.length === 0) {
+        favDiv.style.display = "none";
+        return;
+    }
+    favBtn.textContent = "Save Station";
+    favDiv.style.display = "block";
+    favDiv.innerHTML = "<p>Saved stations:</p>";
+
+    favs.forEach((fav, index) => {
+        const btn = document.createElement("button");
+        btn.textContent = fav.name;
+        btn.classList.add("fav-station-btn");
+        btn.addEventListener("click", () => {
+            stationInput.value = fav.name;
+            selectedCode = fav.code;
+            searchTrains();
+        });
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "✕";
+        deleteBtn.classList.add("fav-delete-btn");
+        deleteBtn.addEventListener("click", () => {
+            favs.splice(index, 1);
+            localStorage.setItem('favStations', JSON.stringify(favs));
+            loadFavorite();
+        });
+
+        favDiv.appendChild(btn);
+        favDiv.appendChild(deleteBtn);
+    });
+}
+
 searchBtn.addEventListener("click", searchTrains);
 loadStations();
+favBtn.addEventListener("click", saveFavorite);
+loadFavorite();

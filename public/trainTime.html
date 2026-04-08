@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Train Departures</title>
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="fare-style.css" />
   </head>
   <body>
     <nav class="navbar">
@@ -25,8 +25,9 @@
             <input id="stationInput" type="text" placeholder="Search station..." autocomplete="off" />
           </div>
           <button id="searchBtn">Search</button>
+          <button id="fav-btn">Save Station</button>
         </div>
-
+        <div id="fav-div" style="display:none"></div>
         <p class="error-message" id="errorMsg"></p>
 
         <div class="table-con">

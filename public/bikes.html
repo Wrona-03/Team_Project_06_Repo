@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bicycle Checker</title>
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="fare-style.css" />
   </head>
   <body>
     <nav class="navbar">
@@ -28,7 +27,15 @@
         <button id="bikes-btn">Nearby Bikes</button>
         <button id="all-bikes-btn">All Bikes</button>
       </div>
-
+      <div class="station-select">
+        
+  <div class="autocomplete">
+    <input id="bike-station-input" type="text" placeholder="Search a bike station..." autocomplete="off" />
+  </div>
+  <button id="bike-station-btn">Search Bike Station</button>
+  <button id="fav-station-btn">Save Station</button>
+</div>
+<div id="fav-station-div" style="display:none"></div>
       <p class="error-message" id="error-msg"></p>
 
       <div class="table-con">

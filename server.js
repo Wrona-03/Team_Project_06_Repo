@@ -1,6 +1,5 @@
 require("dotenv").config();
 
-console.log(process.env.MONGO_URI);
 
 const express = require("express"); //  Express for server
 const xml2js = require("xml2js"); // Parsing XML from Irish Rail API
@@ -54,6 +53,16 @@ app.get("/app.js", (_req, res) => res.sendFile(path.join(__dirname, "app.js")));
 // Get list of stations
 app.get("/api/stations", (req, res) => {
   res.json(stations);
+});
+
+// Get stop names from MongoDB for fare calculator autocomplete
+app.get("/api/fare-stops", async (req, res) => {
+  try {
+    const stops = await db.collection("Stops").find({}, { projection: { name: 1, _id: 0 } }).toArray();
+    res.json(stops.map(s => s.name).sort());
+  } catch (err) {
+    res.status(500).json({ error: "Could not fetch stops" });
+  }
 });
 
 // Taking user selection of station and displaying live train data from Irish Rail API
@@ -113,9 +122,20 @@ app.get("/api/station/:code", async (req, res) => {
   }
 });
 
-//Get bikes routes
+app.post("/api/chat", async (req, res) => {
+  const response = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(req.body)
+    }
+  );
+  const data = await response.json();
+  res.json(data);
+});
+
 app.use("/", bikesRouter);
-//Get stops routes
 app.use("/", stopsRouter);
 
 //DB section
