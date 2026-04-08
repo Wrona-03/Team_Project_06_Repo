@@ -1,7 +1,7 @@
 const dns = require("dns");
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
 const { MongoClient, ServerApiVersion } = require("mongodb");
-const uri = `mongodb+srv://submissionUser:${process.env.db_key}@easyfaredatabase.trjnuqe.mongodb.net/EasyFareDataBase?appName=EasyFareDatabase`;
+const uri = `mongodb+srv://${process.env.db_username}:${process.env.db_key}@easyfaredatabase.trjnuqe.mongodb.net/EasyFareDataBase?appName=EasyFareDatabase`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
