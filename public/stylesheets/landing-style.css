@@ -125,6 +125,12 @@ body.show-chatbot .ai-popup {
   background: #5350C4;
 }
 
+.header-info {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
 .header-info .ai-logo {
   height: 30px;
   width: 30px;
@@ -139,6 +145,7 @@ body.show-chatbot .ai-popup {
   font-size: 1.3rem;
   font-weight: 600;
   color: #fff;
+  margin-bottom: 0;
 }
 
 #close-bot {
@@ -309,6 +316,53 @@ body.show-chatbot .ai-popup {
   display: flex;
   gap: 4px;
   padding-block: 14px;
+}
+
+/* Suggestions */
+.Suggestions {
+  position: fixed;
+  bottom: 95px;
+  right: 500px;
+  display: none;
+  gap: 8px;
+  flex-direction: column-reverse;
+}
+
+body.show-chatbot .Suggestions {
+  display: flex;
+}
+
+.Questions {
+  background: #fff;
+  border: 1.5px solid #5350C4;
+  color: #5350C4;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 8px 14px;
+  border-radius: 15px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.Questions:hover {
+  background: #5350C4;
+  color: #fff;
+}
+
+/* Emoji picker */
+em-emoji-picker {
+  position: absolute;
+  left: 70%;
+  top: -245px;
+  width: 250px;
+  max-width: 280px;
+  max-height: 250px;
+  transform: translateX(-50%);
+  visibility: hidden;
+}
+
+body.show-emoji-picker em-emoji-picker {
+  visibility: visible;
 }
 
 /* Mobile */
