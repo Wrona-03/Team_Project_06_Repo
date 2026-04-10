@@ -35,4 +35,19 @@ Users can:
 The system is designed to be quick, clear, and straightforward.
 
 **How do I use it?**
-(TBA - include installation steps and usage instructions here)
+ 
+1. Clone the repository: 
+   git clone https://github.com/Wrona-03/Team_Project_06_Repo.git EasyFare 
+2. Install dependencies: 
+   cd EasyFare 
+   npm install 
+3. Configure environment variables: 
+   Right-click on .env.example, rename to “.env” and configure the variables. 
+4. Start the application: 
+   Open terminal and type: 
+   “node server.js” 
+5. Access the application: 
+       Open http://localhost:3000 in your browser
+   
+**Render link:** Render deployment: https://easyfare.onrender.com/
+**Demo video:** YouTube video demo: https://youtu.be/YZMh5m14HRE 
