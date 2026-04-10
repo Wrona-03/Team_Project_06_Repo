@@ -49,5 +49,6 @@ The system is designed to be quick, clear, and straightforward.
 5. Access the application: 
        Open http://localhost:3000 in your browser
    
-**Render link:** Render deployment: https://easyfare.onrender.com/
-**Demo video:** YouTube video demo: https://youtu.be/YZMh5m14HRE 
+**Render link:** https://easyfare.onrender.com/
+
+**Demo video:** https://youtu.be/YZMh5m14HRE 
