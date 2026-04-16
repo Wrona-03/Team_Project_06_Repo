@@ -84,6 +84,7 @@ function autocomplete(inp, stopsArr, onSelect) {
 }
 
 async function loadStops() {
+    
     try {
         const response = await fetch("/api/stops");
         const stops = await response.json();
@@ -229,6 +230,7 @@ async function loadBikeStations() {
 }
 
 function saveFavouriteStation(){
+        errorMsg.textContent = "";
     console.log("selectedStation:", selectedStation);
     if(!selectedStation){
         errorMsg.textContent = "Please select a bike station first.";
