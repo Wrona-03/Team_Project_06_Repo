@@ -230,7 +230,7 @@ async function loadBikeStations() {
 }
 
 function saveFavouriteStation(){
-        errorMsg.textContent = "";
+    errorMsg.textContent = "";
     console.log("selectedStation:", selectedStation);
     if(!selectedStation){
         errorMsg.textContent = "Please select a bike station first.";

@@ -24,20 +24,22 @@ function filterNearbyBikes(bikes, lat, lng) {
   // return nearby;
 }
 
-function saveFavourite(selectedStation) {
-  if (!selectedStation)
+function saveFavouriteStation(selectedStation) {
+  if (!selectedStation){
     return { ok: false, error: "Please select a bike station first." };
+  }
   let favs = JSON.parse(localStorage.getItem("favBikeStations")) || [];
-  if (favs.length >= 5)
+
+  if (favs.length >= 5){
     return { ok: false, error: "Maximum 5 saved stations reached." };
+  }
   favs.push({ name: selectedStation });
   localStorage.setItem("favBikeStations", JSON.stringify(favs));
   return { ok: true };
 }
 
-function loadFavourites() {
-    return JSON.parse(localStorage.getItem('favBikeStations')) || [];
+function loadFavouriteStation() {
+  return JSON.parse(localStorage.getItem("favBikeStations")) || [];
 }
 
-
-module.exports = { filterNearbyBikes, saveFavourite, loadFavourites };
+module.exports = { filterNearbyBikes, saveFavouriteStation, loadFavouriteStation };
